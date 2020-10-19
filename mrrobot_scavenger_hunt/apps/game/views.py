@@ -7,6 +7,8 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth import logout as log_out
 from django.contrib.auth.models import User
 
+from mrrobot_scavenger_hunt.apps.game.models import Game
+
 
 def index(request):
     context = {}
@@ -59,19 +61,22 @@ def logout(request):
     return HttpResponse(template.render({}, request))
 
 
+@login_required(login_url='/')
+def start_game(request):
+
+    game, created = Game.objects.get_or_create(user=request.user)
+    if created:
+        message = 'Game started, release the kraken!!'
+
+    template = loader.get_template('game.html')
+
+    return HttpResponse(template.render({'game': game, 'message': message}, request))
+
+
 @login_required
 def game(request):
     '''
         shows all challenges/questions
-    :param request:
-    :return:
-    '''
-
-
-@login_required
-def start_game(request):
-    '''
-        Each player can start his own game, it will generate a path
     :param request:
     :return:
     '''

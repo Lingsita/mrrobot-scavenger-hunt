@@ -7,7 +7,7 @@
     {% endif %}
     {% if user.is_authenticated %}
         <p>{{ user.username }}
-        <p><a href="{% url 'logout' %}">logout</a></p></p>
+        <p><a href="{% url 'start' %}">Start Game</a></p></p>
         {% if game_in_progress %}
         {% else %}
         {% endif %}
