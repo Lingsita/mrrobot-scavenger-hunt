@@ -9,20 +9,20 @@ from django.contrib.auth.models import User
 
 
 def index(request):
-    username = request.POST.get('username')
-    password = request.POST.get('password')
-    user = authenticate(request, username=username, password=password)
     context = {}
-    print(user)
-    if user is not None:
-        login(request, user)
-        context.update({
-            'game_in_progress': False,
-        })
-    else:
-        context.update({
-            'message': 'invalid_credentials. Please try again',
-        })
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            context = {
+                'game_in_progress': False,
+            }
+        else:
+            context = {
+                'message': 'invalid_credentials. Please try again',
+            }
 
     template = loader.get_template('index.html')
 
@@ -30,22 +30,23 @@ def index(request):
 
 
 def signup(request):
-    username = request.POST.get('username')
-    password = request.POST.get('password')
-    context = {
-        'message': 'Please enter your information',
-    }
-    try:
-        User.objects.get(username=username)
-        context['message'] = "This username already exists"
-    except User.DoesNotExist:
-        if username and password:
-            user = User.objects.create(username=username)
-            user.set_password(password)
-            user.save()
-            return redirect('index')
-        else:
-            context['message'] = "Please fill all the fields"
+    context = {}
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        try:
+            User.objects.get(username=username)
+            context['message'] = "This username already exists"
+        except User.DoesNotExist:
+            if username and password:
+                user = User.objects.create(username=username)
+                user.set_password(password)
+                user.save()
+                return redirect('index')
+            else:
+                context['message'] = "Please fill all the fields"
+    else:
+        context['message'] = 'Please enter your information'
 
     template = loader.get_template('signup.html')
 
