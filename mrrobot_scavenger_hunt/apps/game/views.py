@@ -57,6 +57,47 @@ def logout(request):
     template = loader.get_template('logout.html')
     return HttpResponse(template.render({}, request))
 
+
 @login_required
 def game(request):
-    pass
+    '''
+        shows all challenges/questions
+    :param request:
+    :return:
+    '''
+
+
+@login_required
+def start_game(request):
+    '''
+        Each player can start his own game, it will generate a path
+    :param request:
+    :return:
+    '''
+
+
+@login_required
+def finish_game(request):
+    '''
+        If superuser_ can finish the game
+    :param request:
+    :return:
+    '''
+
+
+@login_required
+def score_board(request):
+    '''
+        Show results
+    :param request:
+    :return:
+    '''
+
+
+@login_required
+def send_answer(request):
+    '''
+        Show results
+    :param request:
+    :return:
+    '''
