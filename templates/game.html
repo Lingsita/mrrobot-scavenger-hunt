@@ -2,5 +2,6 @@
 
 {% block content %}
   <h2>This view must show your game!{{ user.username }}</h2>
+  <p><a href="{% url 'finish' %}">Finish game</a></p>
   <p><a href="{% url 'index' %}">back to index?</a></p>
 {% endblock %}

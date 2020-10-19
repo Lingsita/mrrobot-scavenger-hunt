@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import redirect
@@ -64,9 +66,11 @@ def logout(request):
 @login_required(login_url='/')
 def start_game(request):
 
-    game, created = Game.objects.get_or_create(user=request.user)
+    game, created = Game.objects.get_or_create(user=request.user, status=Game.IN_PROGRESS)
     if created:
         message = 'Game started, release the kraken!!'
+    else:
+        message = 'Hurry Up!'
 
     template = loader.get_template('game.html')
 
@@ -75,21 +79,25 @@ def start_game(request):
 
 @login_required
 def game(request):
-    '''
-        shows all challenges/questions
-    :param request:
-    :return:
-    '''
+    template = loader.get_template('game.html')
+    return HttpResponse(template.render({'game': game, 'message': 'Hurry Up!'}, request))
+
 
 
 @login_required
 def finish_game(request):
-    '''
-        If superuser_ can finish the game
-    :param request:
-    :return:
-    '''
+    try:
+        game = Game.objects.get(user=request.user, status=Game.IN_PROGRESS)
+        game.status = Game.FINISHED
+        game.end_date = datetime.now()
+        game.save()
+        message = 'Game Over'
+    except Game.DoesNotExist:
+        return redirect('index')
 
+    template = loader.get_template('game.html')
+
+    return HttpResponse(template.render({'game': game, 'message': message}, request))
 
 @login_required
 def score_board(request):

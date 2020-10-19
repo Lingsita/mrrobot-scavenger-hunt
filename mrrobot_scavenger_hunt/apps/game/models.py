@@ -19,3 +19,6 @@ class Game(models.Model):
     email = models.EmailField()
     start_date = models.DateTimeField(auto_now_add=True)
     end_date = models.DateTimeField(blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.user.username} - {self.status}'

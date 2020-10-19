@@ -1,3 +1,5 @@
 from django.contrib import admin
 
-# Register your models here.
+from mrrobot_scavenger_hunt.apps.game.models import Game
+
+admin.site.register(Game)
