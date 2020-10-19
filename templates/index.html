@@ -1,0 +1,32 @@
+{% block content %}
+
+    {% if form.errors %}
+        <p>Your username and password didn't match. Please try again. </p>
+    {% endif %}
+    {{ message }}
+    {% if user.is_authenticated %}
+        <p>{{ user.username }}
+        <p><a href="{% url 'logout' %}">logout</a></p></p>
+        {% if game_in_progress %}
+        {% else %}
+        {% endif %}
+    {% else %}
+        <p>Please login to see this page.</p>
+        <form method="post" action="{% url 'index' %}">
+            {% csrf_token %}
+            <table>
+                <tr>
+
+                    <td><label for="username">Username: </label></td>
+                    <td><input id="username" type="text" name="username" value="{{ username }}"></td>
+                </tr>
+                <tr>
+                    <td><label for="password">Password: </label></td>
+                    <td><input id="password" type="password" name="password" value="{{ password }}"></td>
+                </tr>
+            </table>
+            <input type="submit" value="login" />
+        </form>
+        <p><a href="{% url 'signup' %}">Or Sign Up</a></p></p>
+    {% endif %}
+{% endblock %}
