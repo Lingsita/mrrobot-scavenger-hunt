@@ -10,7 +10,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth import logout as log_out
 from django.contrib.auth.models import User
 
-from mrrobot_scavenger_hunt.apps.game.models import Game
+from mrrobot_scavenger_hunt.apps.game.models import Game, Path
 
 
 def index(request):
@@ -65,14 +65,15 @@ def logout(request):
 
 
 @login_required(login_url='/')
+@staff_member_required
 def start_game(request):
+    users = User.objects.exclude(is_staff=True)
+    paths = Path.objects.all().count()
+    #TODO: for each player create a new game with different path
+    #game = Game.objects.create(user=user, path=path)
+    #game.start()
 
-    game, created = Game.objects.get_or_create(user=request.user, status=Game.IN_PROGRESS)
-    if created:
-        message = 'Game started, release the kraken!!'
-    else:
-        message = 'Hurry Up!'
-
+    message = "Game Started"
     template = loader.get_template('game.html')
 
     return HttpResponse(template.render({'game': game, 'message': message}, request))
@@ -135,4 +136,3 @@ def save_answer(request):
     :param request:
     :return:
     '''
-
