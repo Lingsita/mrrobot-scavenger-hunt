@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import redirect
@@ -85,6 +86,7 @@ def game(request):
 
 
 @login_required
+@staff_member_required
 def finish_game(request):
     try:
         game = Game.objects.get(user=request.user, status=Game.IN_PROGRESS)
@@ -99,7 +101,26 @@ def finish_game(request):
 
     return HttpResponse(template.render({'game': game, 'message': message}, request))
 
+
 @login_required
+@staff_member_required
+def next_station(request):
+    try:
+        game = Game.objects.get(user=request.user, status=Game.IN_PROGRESS)
+        game.status = Game.FINISHED
+        game.end_date = datetime.now()
+        game.save()
+        message = 'Game Over'
+    except Game.DoesNotExist:
+        return redirect('index')
+
+    template = loader.get_template('game.html')
+
+    return HttpResponse(template.render({'game': game, 'message': message}, request))
+
+
+@login_required
+@staff_member_required
 def score_board(request):
     '''
         Show results
@@ -107,11 +128,11 @@ def score_board(request):
     :return:
     '''
 
-
 @login_required
-def send_answer(request):
+def save_answer(request):
     '''
         Show results
     :param request:
     :return:
     '''
+

@@ -8,9 +8,7 @@
     {% if user.is_authenticated %}
         <p>{{ user.username }} You already logged in
         <p><a href="{% url 'logout' %}">logout</a></p></p>
-        {% if game_in_progress %}
-        {% else %}
-        {% endif %}
+
     {% else %}
         <p>Please signup to start the game</p>
         <form method="post" action="{% url 'signup' %}">
@@ -29,7 +27,6 @@
                 </table>
                 <input type="submit" value="signup" />
             </form>
-
         </form>
     {% endif %}
 {% endblock %}
