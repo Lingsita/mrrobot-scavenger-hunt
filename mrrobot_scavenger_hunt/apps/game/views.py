@@ -142,56 +142,22 @@ def check_puzzle_answer(request):
     return redirect('game')
 
 
-@login_required
-@staff_member_required
-def finish_game(request):
-    try:
-        game = Game.objects.get(user=request.user, status=Game.IN_PROGRESS)
-        game.status = Game.FINISHED
-        game.end_date = datetime.now()
-        game.save()
-        message = 'Game Over'
-    except Game.DoesNotExist:
-        return redirect('index')
-
-    template = loader.get_template('game.html')
-
-    return HttpResponse(template.render({'game': game, 'message': message}, request))
-
-
-@login_required
-@staff_member_required
-def next_station(request):
-    try:
-        game = Game.objects.get(user=request.user, status=Game.IN_PROGRESS)
-        game.status = Game.FINISHED
-        game.end_date = datetime.now()
-        game.save()
-        message = 'Game Over'
-    except Game.DoesNotExist:
-        return redirect('index')
-
-    template = loader.get_template('game.html')
-
-    return HttpResponse(template.render({'game': game, 'message': message}, request))
-
-
 def not_found(request):
-    template = loader.get_template('not_found.html')
+    template = loader.get_template('404.html')
     return HttpResponse(template.render({}, request))
 
 
 @login_required
 def get_attack(request, attack_uuid):
     try:
-        game = Game.objects.get(user=request.user)
+        game = Game.objects.get(user=request.user, mode=Game.ATTACK)
         game_step = GameStep.objects.get(game__user=request.user,
                                          step__attack__attack_uuid=attack_uuid,
                                          step__order=game.get_current_station
                                          )
-    except GameStep.DoesNotExist:
+    except (Game.DoesNotExist, GameStep.DoesNotExist):
         return redirect('not_found')
 
     template = loader.get_template('attack.html')
 
-    return HttpResponse(template.render({'attack': game_step.step.attack, 'message': 'ok'}, request))
+    return HttpResponse(template.render({'step': game_step.step, 'message': 'ok'}, request))

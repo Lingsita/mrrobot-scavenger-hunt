@@ -33,6 +33,7 @@ def approve_attack(modeladmin, request, queryset):
                 game.save()
 approve_attack.short_description = "Approve attack"
 
+
 def progress(obj):
     return f'{obj.score}/{obj.gamestep_set.count()}'
 progress.short_description = "Progress"
