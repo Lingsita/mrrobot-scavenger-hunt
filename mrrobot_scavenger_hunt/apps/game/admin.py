@@ -18,6 +18,7 @@ def end_mission(modeladmin, request, queryset):
     Game.objects.all().update(on_mission=False)
 end_mission.short_description = "End Mission"
 
+
 def approve_attack(modeladmin, request, queryset):
     for game in queryset:
         if game.status is not Game.FINISHED:
@@ -27,11 +28,14 @@ def approve_attack(modeladmin, request, queryset):
                 game_step.save()
                 game.score = game.score + 1
                 game.mode = Game.CYPHER
-                if game.score == 5:
+                if game.score == game.gamestep_set.count():
                     game.status = Game.FINISHED
                 game.save()
-
 approve_attack.short_description = "Approve attack"
+
+def progress(obj):
+    return f'{obj.score}/{obj.gamestep_set.count()}'
+progress.short_description = "Progress"
 
 class GameStepInline(admin.TabularInline):
     model = GameStep
@@ -40,7 +44,7 @@ class GameAdmin(admin.ModelAdmin):
     inlines = [
         GameStepInline,
     ]
-    list_display = ('user', 'score', 'mode', 'status', 'on_mission' )
+    list_display = ('user', progress, 'mode', 'status', 'on_mission' )
     actions = [start_mission, end_mission, approve_attack]
 
 
