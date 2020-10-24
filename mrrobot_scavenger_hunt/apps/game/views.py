@@ -174,3 +174,24 @@ def next_station(request):
     template = loader.get_template('game.html')
 
     return HttpResponse(template.render({'game': game, 'message': message}, request))
+
+
+def not_found(request):
+    template = loader.get_template('not_found.html')
+    return HttpResponse(template.render({}, request))
+
+
+@login_required
+def get_attack(request, attack_uuid):
+    try:
+        game = Game.objects.get(user=request.user)
+        game_step = GameStep.objects.get(game__user=request.user,
+                                         step__attack__attack_uuid=attack_uuid,
+                                         step__order=game.get_current_station
+                                         )
+    except GameStep.DoesNotExist:
+        return redirect('not_found')
+
+    template = loader.get_template('attack.html')
+
+    return HttpResponse(template.render({'attack': game_step.step.attack, 'message': 'ok'}, request))
