@@ -1,21 +1,36 @@
 {% extends "base.html" %}
+{% block title %}
+  {% if user.is_authenticated %}
+    {% if user.is_staff %}
+      Setup Game
+    {% else%}
+    Hacker Setup
+    {% endif %}
+  {% else %}
+    Login
+  {% endif %}
+{% endblock %}
 
 {% block content %}
-
     {% if form.errors %}
         <p>Your username and password didn't match. Please try again. </p>
     {% endif %}
     {% if user.is_authenticated %}
       {% if user.is_staff %}
-        <p>{{message}}</p>
-        {% if not already_started %}<p><a href="{% url 'start' %}">Game Setup</a></p>{%endif%}
-        <p><a href="{% url 'admin:index' %}">Go to admin page</a></p></p>
+        {% if not already_started %}
+          <p style="font-size: 20px; margin-bottom: 60px;"> This is your index page <span>admin</span> Your can start the game or go to Admin's Site for more actions. Enjoy the Hack!</p>
+          <div >
+          <p><a style="text-align:center;" class="btn btn-success" href="{% url 'start' %}">Start Game!</a></p>
+        {% else %}
+        <p style="font-size: 20px; margin-bottom: 60px;"> Go to Admin's Site for more actions. Enjoy the Hack!</p>
+        {%endif%}
+          <p><a class="btn btn-primary" href="{% url 'admin:index' %}">Go to admin page</a></p></p>
       {%else%}
         <p>Please wait for CEO instructions
         <p><a href="{% url 'game' %}">Continue to Game</a></p></p>
       {% endif %}
     {% else %}
-        <p>Please login to see this page.</p>
+        <p>Please Sign in to start the Hack!</p>
         <form method="post" action="{% url 'index' %}">
             {% csrf_token %}
             <table>
@@ -28,8 +43,8 @@
                     <td><input id="password" type="password" name="password" value="{{ password }}"></td>
                 </tr>
             </table>
-            <input type="submit" value="login" />
+            <input class="btn btn-success" style="background-color: none; border-color: greenyellow" type="submit" value="Sign In" />
         </form>
-        <p><a href="{% url 'signup' %}">Or Sign Up</a></p></p>
+        <p><a href="{% url 'signup' %}">Don't you have an account?</a></p></p>
     {% endif %}
 {% endblock %}
