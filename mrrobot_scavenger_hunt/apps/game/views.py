@@ -22,12 +22,11 @@ def index(request):
         if user is not None:
             login(request, user)
             context = {
-                'game_in_progress': False,
-                'page_title': 'HACKER SETUP'
+                'game_in_progress': False
             }
         else:
             context = {
-                'message': 'invalid_credentials. Please try again',
+                'message': 'Invalid Credentials. Please try again',
             }
 
     template = loader.get_template('index.html')
@@ -80,7 +79,9 @@ def start_game(request):
         if users.count() <= paths.count():
             counter = 0
             for user in users:
-                game, _ = Game.objects.get_or_create(user=user, path=paths[counter])
+                game, _ = Game.objects.get_or_create(user=user,
+                                                     path=paths[counter],
+                                                     status=Game.IN_PROGRESS)
                 game.start()
                 counter+=1
             message = "Game Started!!"
@@ -90,7 +91,8 @@ def start_game(request):
     template = loader.get_template('index.html')
 
     return HttpResponse(template.render({'message': message,
-                                         'already_started': already_started},
+                                         'already_started': already_started,
+                                         'page_title': 'Start Game'},
                                          request))
 
 @login_required
