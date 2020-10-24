@@ -62,6 +62,9 @@
   .mode-attack .dot{
     background-color: greenyellow;
   }
+  .hacker-stopwatch {
+    color: #c5bfb8;
+  }
 
 </style>
 <body class="" style="background-color: black; color: white;">
@@ -82,5 +85,36 @@
 <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+    <script>
+        set_stopwatch();
+
+        function set_stopwatch() {
+            counter = {{timer_ms}};
+            ms_in_1_sec = 1000;
+            ms_in_1_min = ms_in_1_sec * 60;
+            ms_in_1_hour = ms_in_1_min * 60;
+            let elemStopwatch = document.getElementById("spStopwatch");
+
+            setInterval(function(){
+                counter+=10;
+                remainder = counter;
+                hour = Math.floor(remainder / ms_in_1_hour);
+                remainder = remainder - ms_in_1_hour * hour;
+                min = Math.floor(remainder / ms_in_1_min);
+                remainder = remainder - ms_in_1_min * min;
+                sec = Math.floor(remainder / ms_in_1_sec);
+                ms = remainder - ms_in_1_sec * sec;
+
+                hour = (hour > 9 ? "" : "0") + hour;
+                min = (min > 9 ? "" : "0") + min;
+                sec = (sec > 9 ? "" : "0") + sec;
+                ms = (ms < 10 ? "00" : (ms < 10 ? "0" : "")) + ms;
+
+                var output = hour + ":" + min + ":" + sec + "," + ms;
+                elemStopwatch.innerHTML = output
+            }, 10);
+        }
+    </script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-from datetime import datetime
+from django.utils import timezone
 
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
@@ -13,6 +13,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 from mrrobot_scavenger_hunt.apps.game.models import Game, GameStep, Path, Log
+
 
 @csrf_exempt
 def index(request):
@@ -33,8 +34,19 @@ def index(request):
                 'message': 'Invalid Credentials. Please try again',
             })
 
+    set_timer(request, context)
     template = loader.get_template('index.html')
     return HttpResponse(template.render(context, request))
+
+
+def set_timer(request, context):
+    if request.user.is_authenticated and not request.user.is_staff:
+        game = Game.objects.get(user=request.user)
+        current_time = timezone.now()
+        diff = current_time - game.start_date
+        ms = round(diff.seconds * 1000 + diff.microseconds / 1000)
+        context["timer_ms"] = ms
+
 
 @csrf_exempt
 def signup(request):
