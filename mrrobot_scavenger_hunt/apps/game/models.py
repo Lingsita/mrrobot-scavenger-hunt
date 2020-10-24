@@ -51,7 +51,6 @@ class Step(models.Model):
     station = models.ForeignKey(Station, on_delete=models.CASCADE)
     puzzle = models.ForeignKey(Puzzle, on_delete=models.CASCADE)
     attack = models.ForeignKey(Attack, on_delete=models.CASCADE)
-    next = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return f"{self.order}:{self.path}:{self.station}"
