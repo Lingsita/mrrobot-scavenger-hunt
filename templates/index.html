@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load static %}
+
 {% block title %}
   {% if user.is_authenticated %}
     {% if user.is_staff %}
@@ -30,8 +32,13 @@
           <p><a class="btn btn-primary" href="{% url 'admin:index' %}">Go to admin page</a></p></p>
         </div>
       {%else%}
-        <p>Please wait for CEO instructions
-        <p><a href="{% url 'game' %}">Continue to Game</a></p></p>
+        <div class="col-xs-12 text-center">
+          <p>Please wait for CEO instructions</p>
+          <br>
+          <img src="https://i.pinimg.com/originals/e8/d5/a3/e8d5a3b3a383211eb74d02a26115defa.gif" %}">
+          <br>
+          <a class="btn btn-success" href="{% url 'game' %}">Continue to Game</a>
+        </div>
       {% endif %}
     {% else %}
         <p>Please Sign in to start the Hack!</p>
@@ -47,9 +54,9 @@
                     <td><input id="password" type="password" name="password" value="{{ password }}"></td>
                 </tr>
             </table>
-            <div class="col-xs-12 text-center">
-              <input class="btn btn-success" style="background-color: none; border-color: greenyellow" type="submit" value="Sign In" />
-            </div>
+
+            <input class="btn btn-success" style="background-color: none; border-color: greenyellow" type="submit" value="Sign In" />
+
         </form>
         <p><a href="{% url 'signup' %}">Don't you have an account?</a></p></p>
     {% endif %}

@@ -16,20 +16,22 @@ from mrrobot_scavenger_hunt.apps.game.models import Game, GameStep, Path, Log
 
 @csrf_exempt
 def index(request):
-    context = {}
+    context = {
+        'mode': 'attack'
+    }
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            context = {
+            context.update({
                 'game_in_progress': False
-            }
+            })
         else:
-            context = {
+            context.update({
                 'message': 'Invalid Credentials. Please try again',
-            }
+            })
 
     template = loader.get_template('index.html')
     return HttpResponse(template.render(context, request))
@@ -93,7 +95,9 @@ def start_game(request):
 
     return HttpResponse(template.render({'message': message,
                                          'already_started': already_started,
-                                         'page_title': 'Start Game'},
+                                         'page_title': 'Start Game',
+                                         'mode': 'attack'
+                                         },
                                          request))
 
 @login_required
@@ -106,9 +110,9 @@ def game(request):
             if game_step.step.puzzle.answer.lower() == puzzle_answer.lower():
                 game_step.is_puzzle_solved = True
                 game_step.save()
-        context = {'game': game,
-                   'message': 'Hurry Up!',
-                   'page_title': game.mode.upper(),
+        context = {'game': game,                   
+                   'page_title': game.mode.upper() if not game.on_mission else 'mission',
+                   'mode': game.mode.lower() if not game.on_mission else 'mission'
                  }
     except Game.DoesNotExist:
         return redirect('index')
