@@ -15,8 +15,9 @@
               <td><input id="puzzle_answer" type="text" name="puzzle_answer" value="{{ puzzle_answer }}"></td>
           </tr>
       </table>
-      <input type="submit" value="Enviar" />
+      <div class="col-xs-12 text-center">
+        <input class="btn btn-success" type="submit" value="Check" />
+      </div>
   </form>
-  <p><a href="{% url 'finish' %}">Finish game</a></p>
   <p><a href="{% url 'index' %}">back to index?</a></p>
 {% endblock %}

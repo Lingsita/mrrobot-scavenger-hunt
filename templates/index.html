@@ -20,11 +20,15 @@
         {% if not already_started %}
           <p style="font-size: 20px; margin-bottom: 60px;"> This is your index page <span>admin</span> Your can start the game or go to Admin's Site for more actions. Enjoy the Hack!</p>
           <div >
-          <p><a style="text-align:center;" class="btn btn-success" href="{% url 'start' %}">Start Game!</a></p>
+          <div class="col-xs-12 text-center">
+            <a style="text-align:center;" class="btn btn-success" href="{% url 'start' %}">Start Game!</a>
+          </div>
         {% else %}
         <p style="font-size: 20px; margin-bottom: 60px;"> Go to Admin's Site for more actions. Enjoy the Hack!</p>
         {%endif%}
+        <div class="col-xs-12 text-center">
           <p><a class="btn btn-primary" href="{% url 'admin:index' %}">Go to admin page</a></p></p>
+        </div>
       {%else%}
         <p>Please wait for CEO instructions
         <p><a href="{% url 'game' %}">Continue to Game</a></p></p>
@@ -43,7 +47,9 @@
                     <td><input id="password" type="password" name="password" value="{{ password }}"></td>
                 </tr>
             </table>
-            <input class="btn btn-success" style="background-color: none; border-color: greenyellow" type="submit" value="Sign In" />
+            <div class="col-xs-12 text-center">
+              <input class="btn btn-success" style="background-color: none; border-color: greenyellow" type="submit" value="Sign In" />
+            </div>
         </form>
         <p><a href="{% url 'signup' %}">Don't you have an account?</a></p></p>
     {% endif %}

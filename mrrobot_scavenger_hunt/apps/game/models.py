@@ -61,7 +61,7 @@ class Step(models.Model):
     def next_step(self):
         try:
             return self.__class__.objects.get(path=self.path,
-                                        step__order=self.order + 1)
+                                              order=self.order + 1)
         except self.__class__.DoesNotExist:
             return None
 
@@ -133,4 +133,3 @@ class Log(models.Model):
 
     def __str__(self):
         return f'{self.created_on}: {self.message}'
-

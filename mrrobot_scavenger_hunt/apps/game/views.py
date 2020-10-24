@@ -9,10 +9,12 @@ from django.template import loader
 from django.contrib.auth import login, authenticate
 from django.contrib.auth import logout as log_out
 from django.contrib.auth.models import User
+from django.views.decorators.csrf import csrf_exempt
+
 
 from mrrobot_scavenger_hunt.apps.game.models import Game, GameStep, Path
 
-
+@csrf_exempt
 def index(request):
     context = {}
     if request.method == 'POST':
@@ -30,10 +32,9 @@ def index(request):
             }
 
     template = loader.get_template('index.html')
-
     return HttpResponse(template.render(context, request))
 
-
+@csrf_exempt
 def signup(request):
     context = {}
     if request.method == 'POST':
