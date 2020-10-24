@@ -9,15 +9,21 @@
   Resolve Puzzle (1 sola palabra):
   <form method="post" action="{% url 'game' %}">
      {% csrf_token %}
+     <div class="form-group">
       <table>
           <tr>
               <td><label for="puzzle_answer">Respuesta: </label></td>
-              <td><input id="puzzle_answer" type="text" name="puzzle_answer" value="{{ puzzle_answer }}"></td>
+              <td>
+                <input style="max-width: 500px" id="puzzle_answer"
+                  type="text"
+                  name="puzzle_answer"
+                  value="{{ puzzle_answer }}">
+              </td>
           </tr>
       </table>
-      <div class="col-xs-12 text-center">
+      <div>
+      <div class="text-center">
         <input class="btn btn-danger mode-cypher" type="submit" value="Check" />
       </div>
   </form>
-  <p><a href="{% url 'index' %}">back to index?</a></p>
 {% endblock %}

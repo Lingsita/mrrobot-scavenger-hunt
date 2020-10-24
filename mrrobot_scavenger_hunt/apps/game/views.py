@@ -38,7 +38,10 @@ def index(request):
 
 @csrf_exempt
 def signup(request):
-    context = {}
+    context = {
+        'page_title': 'Sign Up',
+        'mode': 'attack'
+    }
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -110,7 +113,7 @@ def game(request):
             if game_step.step.puzzle.answer.lower() == puzzle_answer.lower():
                 game_step.is_puzzle_solved = True
                 game_step.save()
-        context = {'game': game,                   
+        context = {'game': game,
                    'page_title': game.mode.upper() if not game.on_mission else 'mission',
                    'mode': game.mode.lower() if not game.on_mission else 'mission'
                  }

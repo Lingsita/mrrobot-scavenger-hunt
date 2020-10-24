@@ -7,7 +7,7 @@
 
     {% if user.is_authenticated %}
         <p>{{ user.username }} You already logged in
-        <p><a href="{% url 'logout' %}">logout</a></p></p>
+        <a href="{% url 'logout' %}">logout</a>
 
     {% else %}
         <p>Please signup to start the game</p>
@@ -24,6 +24,8 @@
                 </tr>
             </table>
             <input class="btn btn-success" type="submit" value="signup" />
+            <br>
+            <a href="{% url 'index' %}">Back to login</a>
         </form>
     {% endif %}
 {% endblock %}

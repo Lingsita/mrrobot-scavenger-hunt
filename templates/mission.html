@@ -1,10 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="col-xs-12">
   <h2>Indicación</h2>
   <p>Descripcion: Dirigete a la estacion camping para completar la mission,
     no olvides las pistas que obtuviste en las estaciones</p>
   <br>
   <br>
-  <a class="btn btn-warning mode-mission" href="{% url 'game' %}">Back to game</a>
+  Podras regresar al juego una vez hayas completado la mission.
+  <br>
+  <div class="text-center">
+    <a class="btn btn-warning mode-mission" href="{% url 'game' %}">Back to game</a>
+  </div>
 {% endblock %}

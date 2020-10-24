@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h2>Felicitaciones! has resuelto el acertijo</h2>
+  <p>Felicitaciones! has resuelto el acertijo</p>
   {% if step.next_step %}
   <p>Tu siguiente estacion es: {{ step.next_step.station.name }}</p>
   <p>Dirigete a tu siguiente estacion y localiza el bug.</p>
   <p>Realiza el ataque y guarda la pista!</p>
   {% else %}
-  <p>Dirigete a navegar en las profundida de la Deep Web</p>
+  <p>Continua a tu último ataque.</p>
   {% endif %}
   <br>
   <br>
@@ -15,9 +15,7 @@
   <form method="post" action="{% url 'game' %}">
     {% csrf_token %}
     <div class="col-xs-12 text-center">
-      <input class="btn btn-success" type="submit" value="Continuar" />
+      <input class="btn btn-danger mode-cypher" type="submit" value="Continuar" />
     </div>
   </form>
-
-  <p><a href="{% url 'index' %}">back to index?</a></p>
 {% endblock %}
