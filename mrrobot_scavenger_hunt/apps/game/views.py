@@ -98,27 +98,33 @@ def game(request):
     try:
         game = Game.objects.get(user=request.user)
         game_step = game.current_step
-        if request.method == 'POST':
+        if request.method == 'POST' and 'puzzle_answer' in request.POST:
             puzzle_answer = request.POST.get('puzzle_answer')
-
             if game_step.step.puzzle.answer.lower() == puzzle_answer.lower():
                 game_step.is_puzzle_solved = True
-                game.mode = Game.ATTACK
                 game_step.save()
-
+        context = {'game': game,
+                   'message': 'Hurry Up!',
+                   'page_title': game.mode.upper(),
+                 }
     except Game.DoesNotExist:
         return redirect('index')
 
-    if game_step.is_puzzle_solved:
-        template_name = "attack.html"
+    if game.status == Game.FINISHED:
+        template_name = "finish.html"
+    elif game.on_mission == True:
+        template_name = "mission.html"
     else:
-        template_name = "puzzle.html"
+        context.update({'step': game_step.step})
+        if game.mode == Game.ATTACK:
+            template_name = "attack.html"
+        elif game_step.is_puzzle_solved and game.mode == Game.CYPHER:
+            template_name = "puzzle_solved.html"
+        else:
+            template_name = "puzzle.html"
+
     template = loader.get_template(template_name)
-    return HttpResponse(template.render({'game': game,
-                                         'message': 'Hurry Up!',
-                                         'page_title': game.mode.upper(),
-                                         'step': game_step.step
-                                         },
+    return HttpResponse(template.render(context,
                                          request))
 
 
@@ -168,21 +174,3 @@ def next_station(request):
     template = loader.get_template('game.html')
 
     return HttpResponse(template.render({'game': game, 'message': message}, request))
-
-
-@login_required
-@staff_member_required
-def score_board(request):
-    '''
-        Show results
-    :param request:
-    :return:
-    '''
-
-@login_required
-def save_answer(request):
-    '''
-        Show results
-    :param request:
-    :return:
-    '''

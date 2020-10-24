@@ -55,6 +55,13 @@ class Step(models.Model):
     def __str__(self):
         return f"{self.order}:{self.path}:{self.station}"
 
+    @property
+    def next_step(self):
+        try:
+            return self.__class__.objects.get(path=self.path,
+                                        step__order=self.order + 1)
+        except self.__class__.DoesNotExist:
+            return None
 
 class GameStep(models.Model):
     game = models.ForeignKey('Game', on_delete=models.CASCADE)
@@ -105,8 +112,11 @@ class Game(models.Model):
 
     @property
     def current_step(self):
-        return GameStep.objects.get(game=self,
-                                         step__order=self.get_current_station)
+        try:
+            return GameStep.objects.get(game=self,
+                                             step__order=self.get_current_station)
+        except:
+            return None
 
     def start(self):
         for step in self.path.step_set.all():
