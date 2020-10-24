@@ -10,7 +10,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth import logout as log_out
 from django.contrib.auth.models import User
 
-from mrrobot_scavenger_hunt.apps.game.models import Game, GameStep, Path
+from mrrobot_scavenger_hunt.apps.game.models import Game, GameStep, Path, Log
 
 
 def index(request):
@@ -155,7 +155,15 @@ def get_attack(request, attack_uuid):
                                          step__attack__attack_uuid=attack_uuid,
                                          step__order=game.get_current_station
                                          )
-    except (Game.DoesNotExist, GameStep.DoesNotExist):
+    except Game.DoesNotExist:
+        return redirect('not_found')
+    except GameStep.DoesNotExist:
+        try:
+            message = f'Attack not found! Current_station: {game.get_current_station} || UUID: {attack_uuid}'
+            log = Log.objects.create(user=request.user, message=message)
+            log.save()
+        except Exception as e:
+            print(e)
         return redirect('not_found')
 
     template = loader.get_template('attack.html')
