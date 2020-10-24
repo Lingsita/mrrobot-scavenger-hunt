@@ -35,6 +35,7 @@ class Station(models.Model):
     def __str__(self):
         return f"{self.name}"
 
+
 class Path(models.Model):
     name = models.CharField(max_length=255, null=True, blank=True)
 
@@ -63,6 +64,7 @@ class Step(models.Model):
                                         step__order=self.order + 1)
         except self.__class__.DoesNotExist:
             return None
+
 
 class GameStep(models.Model):
     game = models.ForeignKey('Game', on_delete=models.CASCADE)
@@ -122,3 +124,13 @@ class Game(models.Model):
     def start(self):
         for step in self.path.step_set.all():
             GameStep.objects.create(game=self, step=step)
+
+
+class Log(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_on = models.DateTimeField(auto_now_add=True)
+    message = models.CharField(max_length=255, null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.created_on}: {self.message}'
+
