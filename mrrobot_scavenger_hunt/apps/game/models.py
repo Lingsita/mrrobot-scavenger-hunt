@@ -51,6 +51,7 @@ class Step(models.Model):
     station = models.ForeignKey(Station, on_delete=models.CASCADE)
     puzzle = models.ForeignKey(Puzzle, on_delete=models.CASCADE)
     attack = models.ForeignKey(Attack, on_delete=models.CASCADE)
+    next = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return f"{self.order}:{self.path}:{self.station}"
@@ -65,7 +66,7 @@ class GameStep(models.Model):
 
 class Game(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    score = models.IntegerField('Score', null=True, blank=True)
+    score = models.IntegerField('Score', default=0, blank=True)
 
     IN_PROGRESS = 'in_progress'
     FINISHED = 'finished'
@@ -103,6 +104,11 @@ class Game(models.Model):
     def get_current_station(self):
         return self.score + 1
 
-    def start(self, user, path):
-        for step in self.path.steps.all():
+    @property
+    def current_step(self):
+        return GameStep.objects.get(game=self,
+                                         step__order=self.get_current_station)
+
+    def start(self):
+        for step in self.path.step_set.all():
             GameStep.objects.create(game=self, step=step)

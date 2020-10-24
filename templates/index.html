@@ -6,18 +6,20 @@
         <p>Your username and password didn't match. Please try again. </p>
     {% endif %}
     {% if user.is_authenticated %}
-        <p>{{ user.username }}
-        <p><a href="{% url 'start' %}">Start Game</a></p></p>
-        {% if game_in_progress %}
-        {% else %}
-        {% endif %}
+      {% if user.is_staff %}
+        <p>{{message}}</p>
+        {% if not already_started %}<p><a href="{% url 'start' %}">Game Setup</a></p>{%endif%}
+        <p><a href="{% url 'admin:index' %}">Go to admin page</a></p></p>
+      {%else%}
+        <p>Please wait for CEO instructions
+        <p><a href="{% url 'game' %}">Continue to Game</a></p></p>
+      {% endif %}
     {% else %}
         <p>Please login to see this page.</p>
         <form method="post" action="{% url 'index' %}">
             {% csrf_token %}
             <table>
                 <tr>
-
                     <td><label for="username">Username: </label></td>
                     <td><input id="username" type="text" name="username" value="{{ username }}"></td>
                 </tr>

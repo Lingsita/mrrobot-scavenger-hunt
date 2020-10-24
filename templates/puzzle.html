@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Puzzle</h2>
+  <p>Tipo: {{ step.puzzle.puzzle_type }}</p>
+  <p>Descripcion: {{ step.puzzle.description }}</p>
+  <br>
+  <br>
+  Resolve Puzzle (1 sola palabra):
+  <form method="post" action="{% url 'game' %}">
+     {% csrf_token %}
+      <table>
+          <tr>
+              <td><label for="puzzle_answer">Respuesta: </label></td>
+              <td><input id="puzzle_answer" type="text" name="puzzle_answer" value="{{ puzzle_answer }}"></td>
+          </tr>
+      </table>
+      <input type="submit" value="Enviar" />
+  </form>
+  <p><a href="{% url 'finish' %}">Finish game</a></p>
+  <p><a href="{% url 'index' %}">back to index?</a></p>
+{% endblock %}
