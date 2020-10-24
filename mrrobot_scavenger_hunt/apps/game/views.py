@@ -159,8 +159,9 @@ def not_found(request):
 
 @login_required
 def get_attack(request, attack_uuid):
+    print(attack_uuid)
     try:
-        game = Game.objects.get(user=request.user, mode=Game.ATTACK)
+        game = Game.objects.get(user=request.user)
         game_step = GameStep.objects.get(game__user=request.user,
                                          step__attack__attack_uuid=attack_uuid,
                                          step__order=game.get_current_station
@@ -175,7 +176,8 @@ def get_attack(request, attack_uuid):
         except Exception as e:
             print(e)
         return redirect('not_found')
+        
+    game.mode = Game.ATTACK
+    game.save()
 
-    template = loader.get_template('attack.html')
-
-    return HttpResponse(template.render({'step': game_step.step, 'message': 'ok'}, request))
+    return redirect('game')

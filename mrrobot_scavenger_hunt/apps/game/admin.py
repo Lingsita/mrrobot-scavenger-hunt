@@ -48,9 +48,13 @@ class GameAdmin(admin.ModelAdmin):
     list_display = ('user', progress, 'mode', 'status', 'on_mission' )
     actions = [start_mission, end_mission, approve_attack]
 
+class AttackAdmin(admin.ModelAdmin):
+    list_display = ('description', 'attack_uuid')
 
-admin.site.register(Attack)
+
+admin.site.register(Attack, AttackAdmin)
 admin.site.register(Puzzle)
 admin.site.register(Station)
 admin.site.register(Path, PathAdmin)
 admin.site.register(Game, GameAdmin)
+admin.site.register(Step)
