@@ -38,12 +38,15 @@ progress.short_description = "Progress"
 
 
 def solving(obj):
-    if obj.mode == Game.CYPHER:
-        return f'Puzzle - {obj.current_step.step.puzzle.description}'
-    elif obj.mode == Game.ATTACK:
-        f'Attack - {obj.current_step.step.attack.description}'
-    else:
-        return 'Mission'
+    current_step = obj.current_step
+    if current_step:
+        if obj.mode == Game.CYPHER:
+            return f'Puzzle - {current_step.step.puzzle.description}'
+        elif obj.mode == Game.ATTACK:
+            f'Attack - {current_step.step.attack.description}'
+        else:
+            return 'Mission'
+    return '----'
 solving.short_description = "Solving"
 
 
