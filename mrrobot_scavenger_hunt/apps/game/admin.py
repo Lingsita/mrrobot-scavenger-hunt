@@ -27,7 +27,7 @@ def approve_attack(modeladmin, request, queryset):
                 game_step.is_attack_approved = True
                 game_step.save()
                 game.score = game.score + 1
-                game.mode = Game.CYPHER                
+                game.mode = Game.CYPHER
                 game.save()
 approve_attack.short_description = "Approve attack"
 
@@ -36,6 +36,17 @@ def progress(obj):
     return f'{obj.score}/{obj.gamestep_set.count()}'
 progress.short_description = "Progress"
 
+
+def solving(obj):
+    if obj.mode == Game.CYPHER:
+        return f'Puzzle - {obj.current_step.step.puzzle.description}'
+    elif obj.mode == Game.ATTACK:
+        f'Attack - {obj.current_step.step.attack.description}'
+    else:
+        return 'Mission'
+solving.short_description = "Solving"
+
+
 class GameStepInline(admin.TabularInline):
     model = GameStep
 
@@ -43,7 +54,7 @@ class GameAdmin(admin.ModelAdmin):
     inlines = [
         GameStepInline,
     ]
-    list_display = ('user', progress, 'mode', 'status', 'on_mission' )
+    list_display = ('user', progress, 'mode', 'status', solving, 'on_mission' )
     actions = [start_mission, end_mission, approve_attack]
 
 class AttackAdmin(admin.ModelAdmin):
