@@ -41,11 +41,14 @@ def index(request):
 
 def set_timer(request, context):
     if request.user.is_authenticated and not request.user.is_staff:
-        game = Game.objects.get(user=request.user)
-        current_time = timezone.now()
-        diff = current_time - game.start_date
-        ms = round(diff.seconds * 1000 + diff.microseconds / 1000)
-        context["timer_ms"] = ms
+        try:
+            game = Game.objects.get(user=request.user)
+            current_time = timezone.now()
+            diff = current_time - game.start_date
+            ms = round(diff.seconds * 1000 + diff.microseconds / 1000)
+            context["timer_ms"] = ms
+        except Game.DoesNotExist:
+            pass
 
 
 @csrf_exempt
@@ -107,7 +110,6 @@ def start_game(request):
             message = "Hay mas jugadores que path, configurelo por admin"
 
     template = loader.get_template('index.html')
-
     return HttpResponse(template.render({'message': message,
                                          'already_started': already_started,
                                          'page_title': 'Start Game',
@@ -118,7 +120,7 @@ def start_game(request):
 @login_required
 def game(request):
     try:
-        game = Game.objects.get(user=request.user)
+        game = Game.objects.get(user=request.user, status=Game.IN_PROGRESS)
         game_step = game.current_step
         if request.method == 'POST' and 'puzzle_answer' in request.POST:
             puzzle_answer = request.POST.get('puzzle_answer')
@@ -132,7 +134,9 @@ def game(request):
     except Game.DoesNotExist:
         return redirect('index')
 
-    if game.status == Game.FINISHED:
+    if game.score == game.gamestep_set.count():
+        game.status = Game.FINISHED
+        game.save()
         template_name = "finish.html"
     elif game.on_mission == True:
         template_name = "mission.html"
@@ -145,6 +149,7 @@ def game(request):
         else:
             template_name = "puzzle.html"
 
+    set_timer(request, context)
     template = loader.get_template(template_name)
     return HttpResponse(template.render(context,
                                          request))
@@ -154,7 +159,7 @@ def game(request):
 def check_puzzle_answer(request):
     if request.method == 'POST':
         puzzle_answer = request.POST.get('puzzle_answer')
-        game = Game.objects.get(user=request.user)
+        game = Game.objects.get(user=request.user, status=Game.IN_PROGRESS)
         game_step = GameStep.objects.get(game=game,
         step__order=game.get_current_station)
 
@@ -169,12 +174,11 @@ def not_found(request):
     return HttpResponse(template.render({}, request))
 
 
-@login_required
+@login_required(login_url='/')
 def get_attack(request, attack_uuid):
-    print(attack_uuid)
     try:
-        game = Game.objects.get(user=request.user)
-        game_step = GameStep.objects.get(game__user=request.user,
+        game = Game.objects.get(user=request.user, status=Game.IN_PROGRESS)
+        game_step = GameStep.objects.get(game=game,
                                          step__attack__attack_uuid=attack_uuid,
                                          step__order=game.get_current_station
                                          )
@@ -188,7 +192,7 @@ def get_attack(request, attack_uuid):
         except Exception as e:
             print(e)
         return redirect('not_found')
-        
+
     game.mode = Game.ATTACK
     game.save()
 

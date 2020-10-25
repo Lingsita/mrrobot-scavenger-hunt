@@ -71,7 +71,12 @@
   <nav class="navbar navbar-expand-lg mode-{{mode}}">
   <a class="navbar-brand" href="#"><span class="dot"></span> {% block title %} {{page_title}} Mode {% endblock %}</a>
   <div style="margin-right:0">
-    {{user.username}}
+    {% if user.is_authenticated %}
+      {% if not user.is_staff and game %}
+        {{user.username}}
+        <h6 id="spStopwatch" class="hacker-stopwatch">{{start_time}}</h6>
+      {% endif %}
+    {% endif %}
   </div>
 </nav>
 
@@ -111,7 +116,7 @@
                 sec = (sec > 9 ? "" : "0") + sec;
                 ms = (ms < 10 ? "00" : (ms < 100 ? "0" : "")) + ms;
 
-                var output = hour + ":" + min + ":" + sec + "," + ms;
+                var output = hour + ":" + min + ":" + sec;
                 elemStopwatch.innerHTML = output
             }, 10);
         }

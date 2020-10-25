@@ -27,9 +27,7 @@ def approve_attack(modeladmin, request, queryset):
                 game_step.is_attack_approved = True
                 game_step.save()
                 game.score = game.score + 1
-                game.mode = Game.CYPHER
-                if game.score == game.gamestep_set.count():
-                    game.status = Game.FINISHED
+                game.mode = Game.CYPHER                
                 game.save()
 approve_attack.short_description = "Approve attack"
 
