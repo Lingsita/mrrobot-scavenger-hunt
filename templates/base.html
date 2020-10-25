@@ -83,59 +83,58 @@
 
 <div class="container-fluid" style="padding: 30px">
   <div class="col-xs-12">
-    <a  style="border:none; padding-left: 0; padding-top:0;" class="btn mode-{{mode}}" data-toggle="modal" data-target="#exampleModalLong">
-        <svg width="1em" height=1em" viewBox="0 0 16 16" class="bi bi-gear-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <a  style="border:none; padding-left: 0; padding-top:0; font-size: 5vw" class="btn mode-{{mode}}" data-toggle="modal" data-target="#exampleModalLong">
+        <svg width="5vw" height=5vw" viewBox="0 0 16 16" class="bi bi-gear-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 0 0-5.86 2.929 2.929 0 0 0 0 5.858z"/>
         </svg> Recursos
       </a>
     <p style="color: red; font-weight: bold">{{ message }}</p>
     {% block content %}
     {% endblock %}
-  </div>
 
-
-<!-- Modal -->
-<div class="modal fade mode-{{mode}}" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title" id="exampleModalLongTitle">Recursos</h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-          <li class="nav-item">
-            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
-              aria-selected="true">Instrucciones</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
-              aria-selected="false">Mapa</a>
-          </li>
-        </ul>
-        <div class="tab-content" id="myTabContent">
-          <div style="font-size: 5vw;" class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-            <ul class="list-group">
-              <li class="list-group-item">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </li>
-              <li class="list-group-item">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</li>
-              <li class="list-group-item">When an unknown printer took a galley of type and scrambled it to make a type specimen book.</li>
-              <li class="list-group-item">It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages.</li>
-              <li class="list-group-item">And more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</li>
-            </ul>
+    <!-- Modal -->
+    <div class="modal fade mode-{{mode}}" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" id="exampleModalLongTitle">Recursos</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
-          <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-              <img style="max-width:100%; margin-top:20px;" src="https://i.pinimg.com/originals/53/78/93/537893b8fe2059788cd63e6ede9b69fd.jpg">
+          <div class="modal-body">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+                  aria-selected="true">Instrucciones</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+                  aria-selected="false">Mapa</a>
+              </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <div style="font-size: 4vw;" class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <ul class="list-group">
+                  <li class="list-group-item">Lorem Ipsum is simply dummy text of the printing and typesetting industry. </li>
+                  <li class="list-group-item">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</li>
+                  <li class="list-group-item">When an unknown printer took a galley of type and scrambled it to make a type specimen book.</li>
+                  <li class="list-group-item"> It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages.</li>
+                  <li class="list-group-item">And more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</li>
+                </ul>
+              </div>
+              <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                  <img style="max-width:100%; margin-top:20px;" src="https://i.pinimg.com/originals/53/78/93/537893b8fe2059788cd63e6ede9b69fd.jpg">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
     </div>
   </div>
-</div>
 </div>
 <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
