@@ -109,7 +109,7 @@
                 hour = (hour > 9 ? "" : "0") + hour;
                 min = (min > 9 ? "" : "0") + min;
                 sec = (sec > 9 ? "" : "0") + sec;
-                ms = (ms < 10 ? "00" : (ms < 10 ? "0" : "")) + ms;
+                ms = (ms < 10 ? "00" : (ms < 100 ? "0" : "")) + ms;
 
                 var output = hour + ":" + min + ":" + sec + "," + ms;
                 elemStopwatch.innerHTML = output
