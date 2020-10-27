@@ -1,15 +1,21 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <p>Felicitaciones! has resuelto el acertijo</p>
+<div class="text-center">
+  <p>Felicitaciones! Has logrado descifrar el mensaje oculto.</p>
   {% if step.next_step %}
-  <p>Tu siguiente estacion es: {{ step.next_step.station.name }}</p>
-  <p>Dirigete a tu siguiente estacion y localiza el bug.</p>
-  <p>Realiza el ataque y guarda la pista!</p>
+  <p>Tu siguiente estacion es:</p>
+  <div style="margin: 8vw 0vw;">
+    <span class="mode-{{mode}}" style="font-size: 12vw;"><strong>10</strong></span> <br/>
+    <span class="mode-{{mode}}" style="font-family: monospace;">
+      <strong>{{ step.next_step.station.name }}</strong>
+    </span>
+  </div>
+  <p>Dirígete a tu siguiente estacion y localiza el bug. Realiza el ataque y <strong>guarda la pista!</strong></p>
   {% else %}
+  <br/>
   <p>Continua a tu último ataque.</p>
   {% endif %}
-  <br>
   <br>
 
   <form method="post" action="{% url 'game' %}">
@@ -18,4 +24,5 @@
       <input class="btn btn-danger mode-cypher" type="submit" value="Continuar" />
     </div>
   </form>
+</div>
 {% endblock %}

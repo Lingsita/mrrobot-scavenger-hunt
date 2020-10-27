@@ -45,7 +45,7 @@ def set_timer(request, context):
             game = Game.objects.get(user=request.user)
             current_time = timezone.now()
             diff = current_time - game.start_date
-            ms = round(diff.seconds * 1000 + diff.microseconds / 1000)
+            ms = diff.seconds * 1000
             context["timer_ms"] = ms
         except Game.DoesNotExist:
             pass

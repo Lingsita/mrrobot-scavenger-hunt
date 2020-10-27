@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h2>Attack</h2>
-  <p>Descripcion: {{ step.attack.description }}</p>
-  <p>Tipo de evidencia: {{ step.attack.evidence_type }}</p>
-  <br>
+  <p class="text-center mode-{{mode}}"><strong>{{ step.attack.title }}</strong></p>
+  <p class="text-justify">{{ step.attack.description }}</p>
+  <br/>
+  <p><strong class="mode-{{mode}}">Evidencia:</strong> {{ step.attack.evidence_type }}</p>
   <br>
   <p><a class="btn btn-success mode-attack" href="{% url 'game' %}">CONTINUE</a></p>
 {% endblock %}

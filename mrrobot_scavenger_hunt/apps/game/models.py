@@ -12,6 +12,7 @@ class Attack(models.Model):
         (VIDEO, 'Video'),
     )
     attack_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
+    title = models.TextField(null=True)
     description = models.TextField()
     evidence_type = models.CharField(max_length=255, choices=EVIDENCE_TYPES)
 
@@ -20,6 +21,7 @@ class Attack(models.Model):
 
 
 class Puzzle(models.Model):
+    tip = models.TextField(null=True)
     description = models.TextField()
     answer = models.CharField(max_length=255)
     puzzle_type = models.CharField(max_length=255, blank=True)
