@@ -103,7 +103,7 @@ class Game(models.Model):
     mode = models.CharField(
         max_length=11,
         choices=MODE_TYPES,
-        default=CYPHER
+        default=STORY
     )
     start_date = models.DateTimeField(auto_now_add=True)
     end_date = models.DateTimeField(blank=True, null=True)

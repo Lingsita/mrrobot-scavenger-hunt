@@ -202,13 +202,23 @@ def get_attack(request, attack_uuid):
 
 @login_required
 def story(request, story_id):
+    if story_id < 0 or story_id > 7:
+        return redirect('index')
+
     try:
         game = Game.objects.get(user=request.user, status=Game.IN_PROGRESS)
         game_step = game.current_step
-        context = {'game': game,
-                   'page_title': game.mode.upper() if not game.on_mission else 'mission',
-                   'mode': game.mode.lower() if not game.on_mission else 'mission'
-                 }
+
+        if story_id is 0:
+            game.mode = Game.CYPHER
+            game.save()
+            return redirect('game')
+
+        context = {
+            'game': game,
+            'page_title': game.mode.upper() if not game.on_mission else 'mission',
+            'mode': game.mode.lower() if not game.on_mission else 'mission'
+        }
     except Game.DoesNotExist:
         return redirect('index')
 
