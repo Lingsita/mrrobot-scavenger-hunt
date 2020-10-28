@@ -14,8 +14,14 @@
       <br/>
     </p>
   </div>
-  <div class="text-center">
-    <p><a class="btn btn-success mode-{{mode}}" href="{% url 'story' 3 %}">NEXT</a></p>
+  <br/>
+  <div class="row mode-{{mode}}">
+    <div class="col-sm-11">
+      <p><a class="mode-{{mode}}" href="{% url 'story' 1 %}"> < </a></p>
+    </div>
+    <div class="col-sm-1 col-sm-offset-10">
+      <p><a class="mode-{{mode}}" href="{% url 'story' 3 %}"> > </a></p>
+    </div>
   </div>
 {% endblock %}
 
