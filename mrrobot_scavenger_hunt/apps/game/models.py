@@ -94,9 +94,11 @@ class Game(models.Model):
 
     CYPHER = 'cypher'
     ATTACK = 'attack'
+    STORY = 'story'
     MODE_TYPES = (
         (CYPHER, 'Cypher'),
         (ATTACK, 'Attack'),
+        (STORY, 'Story')
     )
     mode = models.CharField(
         max_length=11,

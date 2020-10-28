@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="story text-center">
+    <p class="title mode-{{mode}}">
+      ¿Sois un <font face="monospace">1</font>  o un <font face="monospace">0</font>?
+    </p>
+    <p class="desc text-justify">
+      Todo se ha jodido por completo, así que
+      <strong class="mode-{{mode}}">crearemos una resistencia</strong> con nuestros líderes
+      <strong> Epsilon, Sigma y Omega</strong> al mando.
+      Estamos buscando a gente <strong>como tú</strong>. ¿Qué dices?
+      <br/>
+      <br>
+    </p>
+    <p style="font-size: 5vw;">
+      <strong>¿Sois un <i>sí</i> o un <i>no</i>?</strong>
+    </p>
+    <p class="desc text-justify">
+      <br/>
+      Si decidís no aceptar y os largáis, os convertís en un <font face="monospace">0</font>,
+      pero <strong>si queréis cambiar el mundo y os quedáis</strong>,
+      os convertís en un <strong><i>sí</i></strong>...<br/>
+    </p>
+    <p style="font-size: 6.5vw; margin-top: 3vw;">
+      <strong class="mode-{{mode}}">¡Os convertís en un <font face="monospace">1</font>!</strong>
+    </p>
+  </div>
+  <div class="text-center">
+    <p><a class="btn btn-success mode-{{mode}}" href="{% url 'story' 6 %}">NEXT</a></p>
+  </div>
+{% endblock %}
+

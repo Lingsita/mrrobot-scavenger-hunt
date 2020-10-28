@@ -117,6 +117,7 @@ def start_game(request):
                                          },
                                          request))
 
+
 @login_required
 def game(request):
     try:
@@ -197,3 +198,20 @@ def get_attack(request, attack_uuid):
     game.save()
 
     return redirect('game')
+
+
+@login_required
+def story(request, story_id):
+    try:
+        game = Game.objects.get(user=request.user, status=Game.IN_PROGRESS)
+        game_step = game.current_step
+        context = {'game': game,
+                   'page_title': game.mode.upper() if not game.on_mission else 'mission',
+                   'mode': game.mode.lower() if not game.on_mission else 'mission'
+                 }
+    except Game.DoesNotExist:
+        return redirect('index')
+
+    context.update({'step': game_step.step})
+    template = loader.get_template(f'story/intro{story_id}.html')
+    return HttpResponse(template.render(context, request))
