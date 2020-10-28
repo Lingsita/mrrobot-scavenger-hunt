@@ -3,19 +3,31 @@
 
 {% block content %}
   <div class="story text-center">
-    <p class="title mode-{{mode}}">FSOCIETY</p>
-    <p class="desc text-justify">
-      Por años, hemos visto la corrupción global y el sacrificio de gente inocente.
-      Es por ello que en nuestro grupo de hackers <strong>FSociety</strong>, hemos decidido <strong>intervenir.</strong>
+    <p class="title mode-{{mode}}">
+      ¿Sois un <font face="monospace">1</font>  o un <font face="monospace">0</font>?
     </p>
-    <img style="margin: 3vw 0;" src="{% static "fsociety.png" %}">
     <p class="desc text-justify">
-      Seremos <strong>implacables, despiadados, sin misericordia,</strong>
-      y no descansaremos hasta que <strong class="mode-{{mode}}">ECorp sea destruído.</strong>
+      Todo se ha jodido por completo y debemos actuar.
+      Estamos <strong class="mode-{{mode}}">creando una resistencia</strong> y
+      buscamos a gente <strong>como tú</strong>. ¿Qué dices?
+      <br/>
+      <br/>
+    </p>
+    <p style="font-size: 5vw;">
+      <strong>¿Sois un <i>sí</i> o un <i>no</i>?</strong>
+    </p>
+    <p class="desc text-justify">
+      <br/>
+      Si decidís no aceptar y os largáis, os convertís en un <font face="monospace">0</font>,
+      pero <strong>si queréis cambiar el mundo y os quedáis...</strong>
+      <br/>
+    </p>
+    <p style="font-size: 6.5vw; margin-top: 3vw;">
+      <strong class="mode-{{mode}}">¡Os convertís en un <font face="monospace">1</font>!</strong>
     </p>
   </div>
   <div class="text-center">
-    <p><a class="btn btn-success mode-{{mode}}" href="{% url 'story' 6 %}">NEXT</a></p>
+    <p><a class="btn btn-success mode-{{mode}}" href="{% url 'story' 6 %}">Let's do it!</a></p>
   </div>
 {% endblock %}
 

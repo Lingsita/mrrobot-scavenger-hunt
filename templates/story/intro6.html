@@ -3,31 +3,22 @@
 
 {% block content %}
   <div class="story text-center">
-    <p class="title mode-{{mode}}">
-      ¿Sois un <font face="monospace">1</font>  o un <font face="monospace">0</font>?
+    <p class="title mode-{{mode}}">Welcome!</p>
+    <p class="desc">
+      ¡Bienvenido al grupo de los <strong>mejores fucking hackers en el mundo!</strong>
+      <br/><br/>
+      Junto a los líderes
+      <strong class="mode-{{mode}}">Epsilon, Sigma y Omega</strong>.
+      trabajareís para destrozar a <strong>ECorp</strong> descifrando mensajes ocultos y ejecutando ataques para derribarlos.
     </p>
-    <p class="desc text-justify">
-      Todo se ha jodido por completo y tenemos que recuperar el control.
-      Estamos <strong class="mode-{{mode}}">creando una resistencia</strong> y
-      buscamos a gente <strong>como tú</strong>. ¿Qué dices?
+    <p>
+      <img style="margin: 3vw 0vw;" src="{% static "watch-dogs-legion.jpg" %}">
       <br/>
-      <br>
-    </p>
-    <p style="font-size: 5vw;">
-      <strong>¿Sois un <i>sí</i> o un <i>no</i>?</strong>
-    </p>
-    <p class="desc text-justify">
-      <br/>
-      Si decidís no aceptar y os largáis, os convertís en un <font face="monospace">0</font>,
-      pero <strong>si queréis cambiar el mundo y os quedáis</strong>,
-      os convertís en un <strong><i>sí</i></strong>...<br/>
-    </p>
-    <p style="font-size: 6.5vw; margin-top: 3vw;">
-      <strong class="mode-{{mode}}">¡Os convertís en un <font face="monospace">1</font>!</strong>
+      <strong>Es hora. ¡Espabila, coño!</strong>
     </p>
   </div>
   <div class="text-center">
-    <p><a class="btn btn-success mode-{{mode}}" href="{% url 'story' 7 %}">NEXT</a></p>
+    <p><a class="btn btn-success mode-{{mode}}" href="{% url 'story' 0 %}">START</a></p>
   </div>
 {% endblock %}
 

@@ -202,7 +202,7 @@ def get_attack(request, attack_uuid):
 
 @login_required
 def story(request, story_id):
-    if story_id < 0 or story_id > 7:
+    if story_id < 0 or story_id > 6:
         return redirect('index')
 
     try:
