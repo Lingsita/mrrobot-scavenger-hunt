@@ -40,6 +40,7 @@ class Station(models.Model):
 
 class Path(models.Model):
     name = models.CharField(max_length=255, null=True, blank=True)
+    url_image = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return f"{self.name}"
