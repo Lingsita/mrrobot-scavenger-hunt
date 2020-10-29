@@ -7,4 +7,24 @@
   <p><strong class="mode-{{mode}}">Evidencia:</strong> {{ step.attack.evidence_type }}</p>
   <br>
   <p><a class="btn btn-success mode-attack" href="{% url 'game' %}">CONTINUE</a></p>
+
+  <!-- Modal HTML -->
+       <div id="myModal" class="modal fade">
+           <div class="modal-dialog modal-lg">
+               <div class="modal-content">
+                   <div class="modal-header">
+                       <h4 class="modal-title">Sign In</h4>
+                       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                   </div>
+                   <div class="modal-body">
+                       Aqui va la historia
+                   </div>
+               </div>
+           </div>
+       </div>
+{% endblock %}
+{% block extra_js %}
+$( document ).ready(function() {
+    $('#myModal').modal('toggle')
+});
 {% endblock %}

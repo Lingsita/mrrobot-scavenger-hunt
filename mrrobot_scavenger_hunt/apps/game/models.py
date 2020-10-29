@@ -35,7 +35,7 @@ class Station(models.Model):
     place = models.TextField()
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.name}:{self.place}"
 
 
 class Path(models.Model):
@@ -54,7 +54,7 @@ class Step(models.Model):
     station = models.ForeignKey(Station, on_delete=models.CASCADE)
     puzzle = models.ForeignKey(Puzzle, on_delete=models.CASCADE)
     attack = models.ForeignKey(Attack, on_delete=models.CASCADE)
-    story = models.TextField(null=True, blank=True)
+
 
     def __str__(self):
         return f"{self.order}:{self.path}:{self.station}"
@@ -68,11 +68,19 @@ class Step(models.Model):
             return None
 
 
+class Story(models.Model):
+    name = models.CharField(max_length=150, unique=True)
+    order = models.IntegerField()
+    place = models.TextField()
+    image = models.CharField(max_length=150, unique=True, help_text="image name")
+
+
 class GameStep(models.Model):
     game = models.ForeignKey('Game', on_delete=models.CASCADE)
     step = models.ForeignKey(Step, on_delete=models.CASCADE)
     is_puzzle_solved = models.BooleanField(default=False)
     is_attack_approved = models.BooleanField(default=False)
+    story = models.ForeignKey(Story, null=True, blank=True, on_delete=models.CASCADE)
 
 
 class Game(models.Model):
@@ -127,8 +135,11 @@ class Game(models.Model):
 
     def start(self):
         for step in self.path.step_set.all():
-            GameStep.objects.create(game=self, step=step)
-
+            try:
+                story = Story.objects.get(step_number=step.order)
+            except:
+                story = None
+            GameStep.objects.create(game=self, step=step, story=story)
 
 class Log(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

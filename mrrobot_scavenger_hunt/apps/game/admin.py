@@ -31,6 +31,20 @@ def approve_attack(modeladmin, request, queryset):
                 game.save()
 approve_attack.short_description = "Approve attack"
 
+def attack_rollback(modeladmin, request, queryset):
+    for game in queryset:
+        if game.status is not Game.FINISHED:
+            game.score = game.score - 1
+            game_step = game.current_step
+            if game_step.is_attack_approved:
+                game_step.is_attack_approved = False
+                game_step.save()
+                game.mode = Game.ATTACK
+                game.save()
+approve_attack.short_description = "Approve attack"
+
+
+
 
 def progress(obj):
     return f'{obj.score}/{obj.gamestep_set.count()}'
@@ -63,6 +77,7 @@ class GameAdmin(admin.ModelAdmin):
 class AttackAdmin(admin.ModelAdmin):
     list_display = ('description', 'attack_uuid')
 
+#TODO: start and end mission without select any player
 
 admin.site.register(Attack, AttackAdmin)
 admin.site.register(Puzzle)
@@ -70,3 +85,4 @@ admin.site.register(Station)
 admin.site.register(Path, PathAdmin)
 admin.site.register(Game, GameAdmin)
 admin.site.register(Step)
+admin.site.register(Story)
