@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="story text-center">
+    <p class="title mode-{{mode}}">El espionaje de la NSA</p>
+    <p class="desc text-justify">
+        Como una broma de un niño adicto al <strong>Focusyn</strong>, el derribo de un satélite con los logos
+        de la NLB/FCF nos informó que ECorp <strong> manipulará</strong> a las personas y su pasión por los deportes
+        para <strong class="mode-{{mode}}">espiarlas y recolectar datos</strong>.
+        Id con <strong>Angela</strong> y ayudadnos a hackear el satélite para obtener más información.
+    </p>
+    <img style="margin: 5vw 0;" src="{% static "p1_bart.jpg" %}">
+  <br/>
+{% endblock %}
+

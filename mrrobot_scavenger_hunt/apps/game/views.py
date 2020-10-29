@@ -225,3 +225,18 @@ def story(request, story_id):
     context.update({'step': game_step.step})
     template = loader.get_template(f'story/intro{story_id}.html')
     return HttpResponse(template.render(context, request))
+
+
+# TODO: add logic for this template
+def product(request, product_id):
+    if product_id < 0 or product_id > 5:
+        return redirect('index')
+
+    context = {
+        'page_title': 'STORY',
+        'mode': 'story'
+    }
+
+    template = loader.get_template(f'story/product{product_id}.html')
+    return HttpResponse(template.render(context, request))
+

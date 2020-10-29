@@ -10,5 +10,6 @@ urlpatterns = [
     path('game', views.game, name='game'),
     path('not_found', views.not_found, name='not_found'),
     path('attack/<uuid:attack_uuid>/', views.get_attack, name='get_attack'),
-    path('story/<int:story_id>/', views.story, name='story')
+    path('story/<int:story_id>/', views.story, name='story'),
+    path('product/<int:product_id>/', views.product, name='product')
 ]
