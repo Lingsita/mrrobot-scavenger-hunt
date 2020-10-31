@@ -231,7 +231,7 @@ def story(request, story_id):
 
 # TODO: add logic for this template
 def product(request, product_id):
-    if product_id < 0 or product_id > 5:
+    if product_id < 0 or product_id > 7:
         return redirect('index')
 
     context = {
