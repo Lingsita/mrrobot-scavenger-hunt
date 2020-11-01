@@ -12,16 +12,6 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunSQL(
             """
-            -- 1. Truncate
-            TRUNCATE TABLE game_gamestep, game_game, game_step, game_path, game_station, game_puzzle, game_attack;
-            ALTER SEQUENCE game_gamestep_id_seq RESTART WITH 1;
-            ALTER SEQUENCE game_game_id_seq RESTART WITH 1;
-            ALTER SEQUENCE game_step_id_seq RESTART WITH 1;
-            ALTER SEQUENCE game_path_id_seq RESTART WITH 1;
-            ALTER SEQUENCE game_station_id_seq RESTART WITH 1;
-            ALTER SEQUENCE game_puzzle_id_seq RESTART WITH 1;
-            ALTER SEQUENCE game_attack_id_seq RESTART WITH 1;
-
             -- 2. Populate: path
             insert into game_path(id, name) values (1, 'Path1');
             insert into game_path(id, name) values (2, 'Path2');

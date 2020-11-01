@@ -79,12 +79,8 @@ WSGI_APPLICATION = 'mrrobot_scavenger_hunt.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'mrrobot_scavenger_hunt',
-        'USER': 'mrrobot_scavenger_hunt',
-        'PASSWORD': 'mrrobot_scavenger_hunt',
-        'HOST': 'localhost',
-        'PORT': '5434',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
