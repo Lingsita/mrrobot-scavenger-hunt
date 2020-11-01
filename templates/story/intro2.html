@@ -6,21 +6,27 @@
     <p class="title mode-{{mode}}">Bogotá, 2020</p>
     <p class="desc text-justify">
       Esta es una ciudad estupenda <strong>llena de corporaciones de mierda.</strong>
-      Basta con que deis un vistazo alrededor!
+      Basta con que deis un vistazo alrededor.
       <br/>
-      <br/>
+    </p>
+    <p>
+      <img style="width: 200px; margin: 50px;" src="{% static "fake.png" %}">
+    </p>
+    <p class="desc text-justify">
       <strong>Es un planeta construído sobre la fantasía,</strong> con emociones sintéticas en forma de pastillas y
-      una guerra psicológica en forma de publicidad. <strong>Somos burbujas aisladas controladas en forma de redes sociales...</strong>
+      una guerra psicológica en forma de publicidad. <strong>
+      <br/>
+      Somos burbujas controladas en forma de redes sociales...</strong>
       <br/>
     </p>
   </div>
   <br/>
   <div class="row mode-{{mode}}">
     <div class="col-sm-11">
-      <p><a class="mode-{{mode}}" href="{% url 'story' 1 %}"> < </a></p>
+      <a class="mode-{{mode}}" href="{% url 'story' 1 %}"><i class="fas fa-angle-left"></i></a>
     </div>
     <div class="col-sm-1 col-sm-offset-10">
-      <p><a class="mode-{{mode}}" href="{% url 'story' 3 %}"> > </a></p>
+      <a class="mode-{{mode}}" href="{% url 'story' 3 %}"><i class="fas fa-angle-right"></i></a>
     </div>
   </div>
 {% endblock %}

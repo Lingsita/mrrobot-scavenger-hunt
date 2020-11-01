@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="story text-center">
+      <p class="title mode-{{mode}}">Insight</p>
+      <p class="desc text-justify">
+          Todo un despliegue magistral de tecnología de punta para el control de manifestaciones.
+          Con nuevos drones para <strong class="mode-{{mode}}">ejecutar a millones en un instante</strong>,
+          el control está asegurado.
+      </p>
+      <p class="text-center">
+          <img style="margin: 5vw 0;" src="{% static "p5_insight.png" %}">
+      </p>
+      <p class="desc text-justify">
+          Sin embargo, ellos no contaban con vuestras habilidades y que junto a <strong>Elliot</strong> formáis
+          un equipo de puta madre para impedir el lanzamiento de esta atrocidad. <strong>¡Apresuráos!</strong>
+      </p>
+  <br/>
+{% endblock %}

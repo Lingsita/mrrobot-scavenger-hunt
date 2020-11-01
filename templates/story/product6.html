@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="story text-center">
+      <p class="title mode-{{mode}}">El ojo de Dios</p>
+      <p class="desc text-justify">
+          Habéis estado cerca de perderlo todo con los <strong class="mode-{{mode}}"> drones asesinos,</strong>
+          pero no os confiéis porque  <strong>ECorp</strong> lanzará su producto estelar.
+      </p>
+      <p class="text-center">
+          <img style="margin: 5vw 0;" src="{% static "deepweb.png" %}">
+      </p>
+      <p class="desc text-justify">
+          Manipulará aparatos que emitan una señal de radio frecuencia y los usará como <strong> sonar </strong>
+          para crear un <strong>mapa</strong> de todas las personas en tiempo real.
+      </p>
+      <p><a class="btn btn-success mode-{{mode}}" href="{% url 'product' 7 %}">NEXT</a></p>
+  <br/>
+{% endblock %}

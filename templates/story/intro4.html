@@ -9,13 +9,19 @@
       En <strong>FSociety</strong>, hemos decidido <strong>intervenir.</strong>
     </p>
     <img style="margin: 3vw 0;" src="{% static "fsociety.png" %}">
-    <p class="desc">
-      Seremos <strong>implacables, despiadados,</strong>
-      y no descansaremos hasta que <br/> <strong class="mode-{{mode}}">ECorp sea destruido.</strong>
+    <p class="desc text-justify">
+      Seremos <strong>implacables, despiadados, sin misericordia</strong>
+      y no descansaremos hasta que <strong class="mode-{{mode}}">ECorp sea destruido.</strong>
     </p>
+    <br/>
   </div>
-  <div class="text-center">
-    <p><a class="btn btn-success mode-{{mode}}" href="{% url 'story' 5 %}">NEXT</a></p>
+  <div class="row mode-{{mode}}">
+    <div class="col-sm-11">
+      <a class="mode-{{mode}}" href="{% url 'story' 3 %}"><i class="fas fa-angle-left"></i></a>
+    </div>
+    <div class="col-sm-1 col-sm-offset-10">
+      <a class="mode-{{mode}}" href="{% url 'story' 5 %}"><i class="fas fa-angle-right"></i></a>
+    </div>
   </div>
 {% endblock %}
 

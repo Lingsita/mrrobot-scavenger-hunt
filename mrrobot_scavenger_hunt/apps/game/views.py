@@ -40,15 +40,16 @@ def index(request):
 
 
 def set_timer(request, context):
+    ms = -1
     if request.user.is_authenticated and not request.user.is_staff:
         try:
             game = Game.objects.get(user=request.user)
             current_time = timezone.now()
             diff = current_time - game.start_date
             ms = diff.seconds * 1000
-            context["timer_ms"] = ms
         except Game.DoesNotExist:
             pass
+    context["timer_ms"] = ms
 
 
 @csrf_exempt
@@ -223,5 +224,21 @@ def story(request, story_id):
         return redirect('index')
 
     context.update({'step': game_step.step})
+    set_timer(request, context)
     template = loader.get_template(f'story/intro{story_id}.html')
     return HttpResponse(template.render(context, request))
+
+
+# TODO: add logic for this template
+def product(request, product_id):
+    if product_id < 0 or product_id > 7:
+        return redirect('index')
+
+    context = {
+        'page_title': 'STORY',
+        'mode': 'story'
+    }
+
+    template = loader.get_template(f'story/product{product_id}.html')
+    return HttpResponse(template.render(context, request))
+

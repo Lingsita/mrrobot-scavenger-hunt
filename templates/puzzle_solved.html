@@ -2,26 +2,27 @@
 
 {% block content %}
 <div class="text-center">
-  <p>Felicitaciones! Has logrado descifrar el mensaje oculto.</p>
+  <br/>
+  <p>Damn good! Habéis logrado descifrar el mensaje oculto.</p>
   {% if step.next_step %}
-  <p>Tu siguiente estacion es:</p>
+  <p>Vuestra siguiente estación es:</p>
   <div style="margin: 8vw 0vw;">
     <span class="mode-{{mode}}" style="font-size: 12vw;"><strong>10</strong></span> <br/>
     <span class="mode-{{mode}}" style="font-family: monospace;">
       <strong>{{ step.next_step.station.name }}</strong>
     </span>
   </div>
-  <p>Dirígete a tu siguiente estacion y localiza el bug. Realiza el ataque y <strong>guarda la pista!</strong></p>
+  <p>Dirigíos a esa estación y buscad el bug. Ejecutad el ataque y <strong>guardad la pista!</strong></p>
   {% else %}
   <br/>
-  <p>Continua a tu último ataque.</p>
+  <p>Continuad a tu último ataque.</p>
   {% endif %}
   <br>
 
   <form method="post" action="{% url 'game' %}">
     {% csrf_token %}
     <div class="col-xs-12 text-center">
-      <input class="btn btn-danger mode-cypher" type="submit" value="Continuar" />
+      <input class="btn btn-danger mode-cypher" type="submit" value="Continue" />
     </div>
   </form>
 </div>
