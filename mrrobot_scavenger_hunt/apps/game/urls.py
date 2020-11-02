@@ -11,5 +11,7 @@ urlpatterns = [
     path('not_found', views.not_found, name='not_found'),
     path('attack/<uuid:attack_uuid>/', views.get_attack, name='get_attack'),
     path('story/<int:story_id>/', views.story, name='story'),
-    path('product/<int:product_id>/', views.product, name='product')
+    path('product/<int:product_id>/', views.product, name='product'),
+    path('listener', views.listener, name='listener'),
+    path('mission', views.mission, name='mission')
 ]

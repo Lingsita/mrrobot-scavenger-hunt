@@ -2,7 +2,7 @@ from django.utils import timezone
 
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect
 from django.template import loader
 
@@ -242,3 +242,27 @@ def product(request, product_id):
     template = loader.get_template(f'story/product{product_id}.html')
     return HttpResponse(template.render(context, request))
 
+@login_required
+def listener(request):
+    on_mission = False
+    try:
+        game = Game.objects.get(user=request.user, status=Game.IN_PROGRESS)
+        on_mission = game.on_mission
+    except Game.DoesNotExist:
+        pass
+
+    return JsonResponse({
+        'on_mission': on_mission
+    })
+
+
+@login_required
+def mission(request):
+    context = {
+        'page_title': 'mission',
+        'mode': 'mission',
+        'timer_ms': -1
+    }
+
+    template = loader.get_template("mission.html")
+    return HttpResponse(template.render(context, request))
