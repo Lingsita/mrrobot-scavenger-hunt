@@ -27,7 +27,7 @@ SECRET_KEY = '9_e$4t7=a1sll1b$7ygs1s@8&n@42+4a67^ep!d1=i)r^*f07d'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['last-example.us-west-2.elasticbeanstalk.com']
+ALLOWED_HOSTS = ['desjodamoselmundo.us-west-2.elasticbeanstalk.com', '172.31.4.53']
 
 
 # Application definition
@@ -79,12 +79,8 @@ WSGI_APPLICATION = 'mrrobot_scavenger_hunt.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'mrrobotscavengerhunt',
-        'USER': 'postgres',
-        'PASSWORD': 'mrrobotscavengerhunt',
-        'HOST': 'mrrobotscavengerhunt.c5r2lotq8ubt.us-west-2.rds.amazonaws.com',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),                      # Or path to database file if using sqlite3.
     }
 }
 
@@ -126,7 +122,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = 'static'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 try:
     from mrrobot_scavenger_hunt.local_settings import *
