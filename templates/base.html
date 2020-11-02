@@ -194,12 +194,32 @@
 
     <script>
         $(function(){
+          checkOnMission();
+
           let elemStopwatch = document.getElementById("spStopwatch");
-          let timer_ms = {{timer_ms}}
+          let timer_ms = {{timer_ms}};
           if (elemStopwatch && timer_ms > -1) {
             set_stopwatch(elemStopwatch, timer_ms);
           }
         });
+
+        function checkOnMission() {
+          let url = '{% url 'mission' %}';
+          if (url == window.location.pathname) {
+            console.log('It is already on mission page');
+          } else {
+            fetch('{% url 'listener' %}')
+            .then(response => response.json())
+            .then(function(data) {
+              if (data && data.on_mission) {
+                window.location.href = url;
+              } else {
+                console.log('calling listener...');
+                checkOnMission();
+              }
+            });
+          }
+        }
 
         function set_stopwatch(elemStopwatch, timer_ms) {
             counter = timer_ms;
