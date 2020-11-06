@@ -127,7 +127,7 @@ def game(request):
         game_step = game.current_step
         if request.method == 'POST' and 'puzzle_answer' in request.POST:
             puzzle_answer = request.POST.get('puzzle_answer')
-            if check_answer(game_step.step.puzzle.answer.lower(), puzzle_answer.lower()):
+            if check_answer(game_step.step.puzzle.answer, puzzle_answer):
                 game_step.is_puzzle_solved = True
                 save_log(request.user, 'Puzzle solved')
                 game_step.save()
@@ -162,7 +162,7 @@ def game(request):
 
 def check_answer(db_answer, user_answer):
     # TODO: remove accent
-    if db_answer.lower() == user_answer.lower():
+    if db_answer.lower() == user_answer.strip().lower():
         return True
     else:
         return False
@@ -225,36 +225,35 @@ def story(request, story_id):
         game = Game.objects.get(user=request.user, status=Game.IN_PROGRESS)
         game_step = game.current_step
 
-        if story_id is 0:
-            game.mode = Game.CYPHER
-            game.save()
-            return redirect('game')
-
         context = {
             'game': game,
             'page_title': game.mode.upper() if not game.on_mission else 'mission',
             'mode': game.mode.lower() if not game.on_mission else 'mission'
         }
+
+        if game.on_mission:
+            template_name = "mission.html"
+        elif story_id is 0:
+            game.mode = Game.CYPHER
+            game.save()
+            return redirect('game')
+        else:
+            template_name = f'story/intro{story_id}.html'
     except Game.DoesNotExist:
         return redirect('index')
 
     context.update({'step': game_step.step})
     set_timer(request, context)
-    template = loader.get_template(f'story/intro{story_id}.html')
+    template = loader.get_template(template_name)
     return HttpResponse(template.render(context, request))
 
 
-# TODO: add logic for this template
-def product(request, product_id):
-    if product_id < 0 or product_id > 7:
-        return redirect('index')
-
+def deep_web_indicator(request):
     context = {
         'page_title': 'STORY',
         'mode': 'story'
     }
-
-    template = loader.get_template(f'story/product{product_id}.html')
+    template = loader.get_template(f'deep_web_indicator.html')
     return HttpResponse(template.render(context, request))
 
 @login_required
