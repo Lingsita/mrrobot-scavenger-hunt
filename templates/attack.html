@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
   <p class="text-center mode-{{mode}}"><strong>{{ step.attack.title }}</strong></p>
@@ -9,22 +10,30 @@
   <p><a class="btn btn-success mode-attack" href="{% url 'game' %}">CONTINUE</a></p>
 
   <!-- Modal HTML -->
-       <div id="myModal" class="modal fade">
-           <div class="modal-dialog modal-lg">
-               <div class="modal-content">
-                   <div class="modal-header">
-                       <h4 class="modal-title">Sign In</h4>
-                       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                   </div>
-                   <div class="modal-body">
-                       Aqui va la historia
-                   </div>
-               </div>
-           </div>
-       </div>
+    <div id="attack-modal" class="modal fade dark-modal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header text-center">
+              <span class="modal-title w-100" style="color: #f76ad8"><strong>{{product.title}}</strong></span>
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          </div>
+          <div class="modal-body">
+              <p class="product-desc text-justify">
+                  {{product.description | safe }}
+              </p>
+              <br/>
+          </div>
+          <div class="text-center">
+              <img id="prodImg" max-width="100%" style="" src="{% static "/" %}">
+          </div>
+          <br/>
+        </div>
+      </div>
+    </div>
 {% endblock %}
 {% block extra_js %}
 $( document ).ready(function() {
-    $('#myModal').modal('toggle')
+    $('#attack-modal').modal('toggle');
+    $('#prodImg').attr('src', $('#prodImg').attr('src') + '{{product.image}}');
 });
  {% endblock %}

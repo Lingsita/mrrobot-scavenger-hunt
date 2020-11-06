@@ -1,28 +1,32 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="text-center">
+<div class="text-justify">
   <br/>
   <p>Damn good! Habéis logrado descifrar el mensaje oculto.</p>
   {% if step.next_step %}
-  <p>Vuestra siguiente estación es:</p>
-  <div style="margin: 8vw 0vw;">
-    <span class="mode-{{mode}}" style="font-size: 12vw;"><strong>10</strong></span> <br/>
-    <span class="mode-{{mode}}" style="font-family: monospace;">
-      <strong>{{ step.next_step.station.name }}</strong>
-    </span>
-  </div>
-  <p>Dirigíos a esa estación y buscad el bug. Ejecutad el ataque y <strong>guardad la pista!</strong></p>
+  <p>
+    <br/>
+    Tendréis que buscar el bug <strong class="mode-{{mode}}">#{{step.attack.id}}</strong>.
+    Cuando lo hayáis encontrado, escanead el código, ejecutad el ataque y guardad la pista.
+    <br/><br/>
+    Vuestra siguiente estación es:</p>
   {% else %}
   <br/>
-  <p>Continuad a tu último ataque.</p>
+  <p>Continuad a tu último ataque de esta fase. Buscad el bug <strong class="mode-{{mode}}">#{{step.attack.id}}</strong> en la estación: </p>
   {% endif %}
+  <div class="text-center" style="margin: 3vw 0vw;">
+    <span class="mode-{{mode}}" style="font-size: 12vw;"><strong>{{ step.station.id }}</strong></span> <br/>
+    <span class="mode-{{mode}}" style="font-family: monospace;">
+      <strong>{{ step.station.name }}</strong>
+    </span>
+  </div>
   <br>
 
   <form method="post" action="{% url 'game' %}">
     {% csrf_token %}
     <div class="col-xs-12 text-center">
-      <input class="btn btn-danger mode-cypher" type="submit" value="Continue" />
+      <!--<input class="btn btn-danger mode-cypher" type="submit" value="Continue" />-->
     </div>
   </form>
 </div>

@@ -10,13 +10,25 @@ class PathAdmin(admin.ModelAdmin):
         StepInline,
     ]
 
+
 def start_mission(modeladmin, request, queryset):
     Game.objects.all().update(on_mission=True)
+    save_log(request.user, f'Start Mission')
 start_mission.short_description = "Start Mission"
+
 
 def end_mission(modeladmin, request, queryset):
     Game.objects.all().update(on_mission=False)
+    save_log(request.user, f'End mission')
 end_mission.short_description = "End Mission"
+
+
+def save_log(user, message):
+    try:
+        log = Log.objects.create(user=user, message=message)
+        log.save()
+    except Exception as e:
+        print(e)
 
 
 def approve_attack(modeladmin, request, queryset):
@@ -29,6 +41,7 @@ def approve_attack(modeladmin, request, queryset):
                 game.score = game.score + 1
                 game.mode = Game.CYPHER
                 game.save()
+                save_log(request.user, f'Attack approved for user_id: {game.user.id}')
 approve_attack.short_description = "Approve attack"
 
 def attack_rollback(modeladmin, request, queryset):

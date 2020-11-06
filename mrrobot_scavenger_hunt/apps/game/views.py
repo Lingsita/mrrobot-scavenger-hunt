@@ -13,6 +13,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 from mrrobot_scavenger_hunt.apps.game.models import Game, GameStep, Path, Log
+from mrrobot_scavenger_hunt.apps.game.static.products import PRODUCTS
 
 
 @csrf_exempt
@@ -126,8 +127,9 @@ def game(request):
         game_step = game.current_step
         if request.method == 'POST' and 'puzzle_answer' in request.POST:
             puzzle_answer = request.POST.get('puzzle_answer')
-            if game_step.step.puzzle.answer.lower() == puzzle_answer.lower():
+            if check_answer(game_step.step.puzzle.answer.lower(), puzzle_answer.lower()):
                 game_step.is_puzzle_solved = True
+                save_log(request.user, 'Puzzle solved')
                 game_step.save()
         context = {'game': game,
                    'page_title': game.mode.upper() if not game.on_mission else 'mission',
@@ -145,6 +147,8 @@ def game(request):
     else:
         context.update({'step': game_step.step})
         if game.mode == Game.ATTACK:
+            current_product = PRODUCTS[game.score]
+            context["product"] = current_product
             template_name = "attack.html"
         elif game_step.is_puzzle_solved and game.mode == Game.CYPHER:
             template_name = "puzzle_solved.html"
@@ -153,8 +157,15 @@ def game(request):
 
     set_timer(request, context)
     template = loader.get_template(template_name)
-    return HttpResponse(template.render(context,
-                                         request))
+    return HttpResponse(template.render(context, request))
+
+
+def check_answer(db_answer, user_answer):
+    # TODO: remove accent
+    if db_answer.lower() == user_answer.lower():
+        return True
+    else:
+        return False
 
 
 @login_required
@@ -187,18 +198,22 @@ def get_attack(request, attack_uuid):
     except Game.DoesNotExist:
         return redirect('not_found')
     except GameStep.DoesNotExist:
-        try:
-            message = f'Attack not found! Current_station: {game.get_current_station} || UUID: {attack_uuid}'
-            log = Log.objects.create(user=request.user, message=message)
-            log.save()
-        except Exception as e:
-            print(e)
+        message = f'Attack not found! Current_station: {game.get_current_station} || UUID: {attack_uuid}'
+        save_log(request.user, message)
         return redirect('not_found')
 
     game.mode = Game.ATTACK
     game.save()
 
     return redirect('game')
+
+
+def save_log(user, message):
+    try:
+        log = Log.objects.create(user=user, message=message)
+        log.save()
+    except Exception as e:
+        print(e)
 
 
 @login_required

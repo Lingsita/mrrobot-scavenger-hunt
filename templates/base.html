@@ -109,12 +109,23 @@
   .story .desc {
     font-size: 5vw;
   }
-  #exampleModalLong, .map {
+  .dark-modal, .map {
     filter: invert(100%);
   }
   .map {
     max-width:100%;
     margin-top:20px;
+  }
+  #attack-modal .modal-body p {
+    font-size: 5vw;
+    margin: 0vw 3vw;
+  }
+  #attack-modal img, #attack-modal .product-desc {
+    filter: invert(100%);
+  }
+
+  .modal-dialog {
+    max-width: unset;
   }
 </style>
 <body class="" style="background-color: black; color: white;">
@@ -145,7 +156,7 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade mode-{{mode}}" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal fade dark-modal mode-{{mode}}" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
       <div style="min-width: 90%;" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
