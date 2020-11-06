@@ -23,10 +23,10 @@
   <br/>
   <div class="row mode-{{mode}}">
     <div class="col-sm-11">
-      <a class="mode-{{mode}}" href="{% url 'story' 1 %}"><i class="fas fa-angle-left"></i></a>
+      <a id="aLeft" class="mode-{{mode}}" href="{% url 'story' 1 %}"><i class="fas fa-angle-left"></i></a>
     </div>
     <div class="col-sm-1 col-sm-offset-10">
-      <a class="mode-{{mode}}" href="{% url 'story' 3 %}"><i class="fas fa-angle-right"></i></a>
+      <a id="aRight" class="mode-{{mode}}" href="{% url 'story' 3 %}"><i class="fas fa-angle-right"></i></a>
     </div>
   </div>
 {% endblock %}
