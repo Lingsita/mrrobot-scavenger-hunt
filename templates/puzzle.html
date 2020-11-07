@@ -6,7 +6,7 @@
       <p><strong>Tip:</strong> {{ step.puzzle.tip }}</p>
   </div>
   <br/>
-  <div class="text-center">
+  <div>
       <strong><label class="mode-{{mode}}">Mensaje</label></strong>
       <p class="puzzle-desc" style="">{{ step.puzzle.description }}</p>
   </div>
@@ -14,7 +14,7 @@
 
   <form method="post" action="{% url 'game' %}">
      {% csrf_token %}
-      <div class="form-group text-center">
+      <div class="form-group">
           <label class="mode-{{mode}}">Respuesta</label>
           <input type="text"  style="background-color: #0b0909; color: #7c7070"
                  class="form-control"

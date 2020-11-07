@@ -1,6 +1,6 @@
 PRODUCTS = [
     {
-        "title": "El espionaje de la NSA",
+        "title": "EL ESPIONAJE DE LA NSA",
         "description": "Como una broma de un niño adicto al <strong>Focusyn</strong>, el derribo de un satélite con "
             "los logos de la <font face='monospace'>NLB/FCF</font> nos informó que ECorp <strong> manipulará</strong>"
             " a las personas y su pasión por los deportes para <strong class='mode-attack'>espiarlas y "
@@ -9,7 +9,7 @@ PRODUCTS = [
         "image": "p1_bart.jpg"
     },
     {
-        "title": "Sibyl system",
+        "title": "SIBYL SYSTEM",
         "description": "Ha sido presentado como solución a enfrentamientos violentos. <i>Sibyl</i> puede clasificar a " 
                        "las personas según su coeficiente criminal y alertar sobre los más peligrosos. "
                        "<br/><br/>¿Su objetivo real? "
@@ -18,7 +18,7 @@ PRODUCTS = [
         "image": "p2_Sibyl_System.png"
     },
     {
-        "title": "Eagle Eye",
+        "title": "EAGLE EYE",
         "description": "Proyecto secreto que busca controlar dispositivos electrónicos para identificar amenazas a la "
                        "seguridad nacional <strong>(a.k.a. <i>Control Total</i>)</strong>. <br/><br/>"
                        "<strong class='mode-attack'> Nuestra propia seguridad está comprometida. </strong>"
@@ -37,7 +37,7 @@ PRODUCTS = [
         "image": "p4_tbd.png"
     },
     {
-        "title": "Insight",
+        "title": "INSIGHT",
         "description": "Todo un despliegue magistral de tecnología de punta para el control de manifestaciones. "
                        "Con nuevos drones para <strong class='mode-attack'>ejecutar a millones en un instante</strong>,"
                        " el control está asegurado.<br/><br/>Sin embargo, ellos no contaban con vuestras habilidades y "

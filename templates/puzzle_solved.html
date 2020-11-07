@@ -2,13 +2,12 @@
 
 {% block content %}
 <div class="text-justify">
-  <br/>
   <p>Damn good! Habéis logrado descifrar el mensaje oculto.</p>
   {% if step.next_step %}
   <p>
     <br/>
-    Tendréis que buscar el bug <strong class="mode-{{mode}}">#{{step.attack.id}}</strong>.
-    Cuando lo hayáis encontrado, escanead el código, ejecutad el ataque y guardad la pista.
+    Buscad el bug <strong class="mode-{{mode}}">#{{step.attack.id}}</strong>,
+    escanead el código QR, ejecutad el ataque y guardad la pista.
     <br/><br/>
     Vuestra siguiente estación es:</p>
   {% else %}
@@ -21,8 +20,6 @@
       <strong>{{ step.station.name }}</strong>
     </span>
   </div>
-  <br>
-
   <form method="post" action="{% url 'game' %}">
     {% csrf_token %}
     <div class="col-xs-12 text-center">

@@ -9,24 +9,26 @@
       <img style="width: 40vw;" src="{% static "Camilo_whisky.jpeg" %}">
   </p>
   {% endif %}
-  <br/>
-  <p><strong class="mode-{{mode}}">Evidencia:</strong> {{ step.attack.evidence_type }}</p>
+  <p>
+      <strong class="mode-{{mode}}">Evidencia:</strong> {{ step.attack.evidence_type }}
+  </p>
   <br>
-  <p><a id="btnContinue" class="btn btn-success mode-attack" href="{% url 'game' %}">CONTINUE</a></p>
+  <p class="text-center">
+      <a id="btnContinue" class="btn btn-success mode-attack" href="{% url 'game' %}">CONTINUE</a>
+  </p>
 
   <!-- Modal HTML -->
     <div id="attack-modal" class="modal fade dark-modal">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header text-center">
-              <span class="modal-title w-100" style="color: #f76ad8"><strong>{{product.title}}</strong></span>
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <span class="modal-title w-100" style="color: #f630cf; font-family: monospace;"><strong>{{product.title}}</strong></span>
+              <button style="font-size: 7vw;" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           </div>
           <div class="modal-body">
               <p class="product-desc text-justify">
                   {{product.description | safe }}
               </p>
-              <br/>
           </div>
           <div class="text-center">
               <img id="prodImg" max-width="100%" style="" data-src="{% static "/" %}">

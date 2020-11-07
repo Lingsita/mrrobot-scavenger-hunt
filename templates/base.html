@@ -33,12 +33,12 @@
     border-color: #d39e00;
   }
   .mode-cypher{
-    color: #A61C00;
-    border-color: #A61C00;
+    color: #f90707;
+    border-color: #f90707;
   }
   .mode-attack{
-    color: #149414;
-    border-color: #149414;
+    color: #0c0;
+    border-color: #0c0;
   }
   .mode-story{
     color: #f40d06;
@@ -68,16 +68,17 @@
     background-color: #d39e00;
   }
   .mode-cypher .dot{
-    background-color: #A61C00;
+    background-color: #f90707;
   }
   .mode-attack .dot{
-    background-color: #149414;
+    background-color: #0c0;
   }
   .mode-story .dot{
     background-color: #f40d06;
   }
   .hacker-stopwatch {
     color: #c5bfb8;
+    font-family: 'monospace';
   }
   .form-group input {
     font-size: 6vw;
@@ -162,7 +163,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h1 class="modal-title" id="exampleModalLongTitle" style="color: gray;"> <strong>Recursos</strong></h1>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button style="font-size: 7vw;" type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -181,12 +182,12 @@
               <div style="font-size: 4vw;" class="tab-pane fade show active text-center" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <strong>Diagrama del Juego</strong>
                 <br/>
-                <img style="width: 70%;" class="map" src="{% static "game_diagram.png" %}">
+                <img style="width: 50%;" class="map" src="{% static "game_diagram.png" %}">
                 <br/>
                 <br/>
                 <strong>Alfabeto</strong>
                 <br/>
-                <img style="width: 70%;" class="map" src="{% static "alphabet_expl.png" %}">
+                <img style="width: 50%;" class="map" src="{% static "alphabet_expl.png" %}">
               </div>
               <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <img class="map" src="{% static "map.png" %}">
@@ -199,7 +200,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
           </div>
         </div>
       </div>
@@ -222,7 +223,7 @@
         });
 
         async function checkOnMission() {
-          await sleep(20000);
+          await sleep(30000);
 
           let url = '{% url 'mission' %}';
           if (url == window.location.pathname) {
