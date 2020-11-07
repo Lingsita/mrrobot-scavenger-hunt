@@ -57,8 +57,6 @@ def attack_rollback(modeladmin, request, queryset):
 approve_attack.short_description = "Approve attack"
 
 
-
-
 def progress(obj):
     return f'{obj.score}/{obj.gamestep_set.count()}'
 progress.short_description = "Progress"
@@ -87,15 +85,32 @@ class GameAdmin(admin.ModelAdmin):
     list_display = ('user', progress, 'mode', 'status', solving, 'on_mission' )
     actions = [start_mission, end_mission, approve_attack]
 
+    def changelist_view(self, request, extra_context=None):
+        actions = self.get_actions(request)
+        if (actions and request.method == 'POST' and 'index' in request.POST and
+                request.POST['action'].endswith('mission')):
+            data = request.POST.copy()
+            data['select_across'] = '1'
+            request.POST = data
+            response = self.response_action(request, queryset=self.get_queryset(request))
+            if response:
+                return response
+        return super(GameAdmin, self).changelist_view(request, extra_context)
+
 class AttackAdmin(admin.ModelAdmin):
-    list_display = ('description', 'attack_uuid')
+    list_display = ('id', 'description', 'evidence_type', 'attack_uuid')
+
+
+class PuzzleAdmin(admin.ModelAdmin):
+    list_display = ('puzzle_type', 'description', 'tip', 'answer')
 
 #TODO: start and end mission without select any player
 
 admin.site.register(Attack, AttackAdmin)
-admin.site.register(Puzzle)
+admin.site.register(Puzzle, PuzzleAdmin)
 admin.site.register(Station)
 admin.site.register(Path, PathAdmin)
 admin.site.register(Game, GameAdmin)
 admin.site.register(Step)
 admin.site.register(Story)
+admin.site.register(Log)

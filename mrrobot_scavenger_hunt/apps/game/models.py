@@ -5,11 +5,17 @@ from django.db import models
 
 
 class Attack(models.Model):
-    AUDIO = 'audio'
-    VIDEO = 'video'
+    AUDIO = 'Audio'
+    VIDEO = 'Video'
+    FOTO = 'Foto'
+    DOS_FOTOS = '2 Fotos'
+    FOTO_VIDEO = '1 Foto y 1 Video'
     EVIDENCE_TYPES = (
-        (AUDIO, 'Audio'),
-        (VIDEO, 'Video'),
+        (AUDIO, AUDIO),
+        (VIDEO, VIDEO),
+        (DOS_FOTOS, DOS_FOTOS),
+        (FOTO_VIDEO, FOTO_VIDEO),
+        (FOTO, FOTO)
     )
     attack_uuid = models.UUIDField(default=uuid.uuid4, editable=False)
     title = models.TextField(null=True)
