@@ -4,6 +4,11 @@
 {% block content %}
   <p class="text-center mode-{{mode}}"><strong>{{ step.attack.title }}</strong></p>
   <p class="text-justify">{{ step.attack.description }}</p>
+  {% if "cerveza" in step.attack.title.lower %}
+  <p class="text-center">
+      <img style="width: 40vw;" src="{% static "Camilo_whisky.jpeg" %}">
+  </p>
+  {% endif %}
   <br/>
   <p><strong class="mode-{{mode}}">Evidencia:</strong> {{ step.attack.evidence_type }}</p>
   <br>
