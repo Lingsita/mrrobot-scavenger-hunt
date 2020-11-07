@@ -51,7 +51,7 @@ class Migration(migrations.Migration):
             insert into game_puzzle (id, tip, description, answer, puzzle_type) values (14, 'Tecnología','百фਡデ円ф', 'xiaomi', 'Alfabeto');
             insert into game_puzzle (id, tip, description, answer, puzzle_type) values (15, 'Deporte','pdiascraaa', 'paracaidas', 'Ordenar Letras');
             insert into game_puzzle (id, tip, description, answer, puzzle_type) values (16, 'Tecnología','ぎфゃいヅでいѠゅヅфょਡょ', 'ciberseguridad', 'Alfabeto');
-            insert into game_puzzle (id, tip, description, answer, puzzle_type) values (17, 'Nooooo','Yo soy tú _ _ _ _ _.', 'padre', 'CompletaLaFrase');
+            insert into game_puzzle (id, tip, description, answer, puzzle_type) values (17, 'Nooooo','Yo soy tu _ _ _ _ _.', 'padre', 'CompletaLaFrase');
             insert into game_puzzle (id, tip, description, answer, puzzle_type) values (18, 'Enfermedad','iseiictapdn', 'apendicitis', 'Ordenar Letras');
             insert into game_puzzle (id, tip, description, answer, puzzle_type) values (19, 'Tecnología','あゅਡщいф', 'huawei', 'Alfabeto');
             insert into game_puzzle (id, tip, description, answer, puzzle_type) values (20, 'Idioma','diamnanr', 'mandarin', 'Ordenar Letras');

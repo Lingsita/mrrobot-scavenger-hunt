@@ -1,16 +1,15 @@
-from django.utils import timezone
+import unicodedata
 
 from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth import login, authenticate
+from django.contrib.auth import logout as log_out
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect
 from django.template import loader
-
-from django.contrib.auth import login, authenticate
-from django.contrib.auth import logout as log_out
-from django.contrib.auth.models import User
+from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
-
 
 from mrrobot_scavenger_hunt.apps.game.models import Game, GameStep, Path, Log
 from mrrobot_scavenger_hunt.apps.game.products import PRODUCTS
@@ -161,13 +160,22 @@ def game(request):
 
 
 def check_answer(db_answer, user_answer):
-    # TODO: remove accent
-    if db_answer.lower() == user_answer.strip().lower():
-        return True
-    else:
-        return False
+    user_answer = user_answer.strip().lower()
+
+    try:
+        # TODO: don't get this unresolved reference issue with unicode but it works xD
+        user_answer = unicode(user_answer, 'utf-8')
+    except NameError:  # unicode is a default on python 3
+        pass
+
+    user_answer = unicodedata.normalize('NFD', user_answer)\
+        .encode('ascii', 'ignore')\
+        .decode("utf-8")
+
+    return db_answer.lower() == user_answer
 
 
+# TODO: What is this function for? I mean the difference between this and what is used in game function
 @login_required
 def check_puzzle_answer(request):
     if request.method == 'POST':
