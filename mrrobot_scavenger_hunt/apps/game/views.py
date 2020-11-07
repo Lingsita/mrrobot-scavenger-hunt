@@ -13,7 +13,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 from mrrobot_scavenger_hunt.apps.game.models import Game, GameStep, Path, Log
-from mrrobot_scavenger_hunt.apps.game.static.products import PRODUCTS
+from mrrobot_scavenger_hunt.apps.game.products import PRODUCTS
 
 
 @csrf_exempt
@@ -192,8 +192,9 @@ def get_attack(request, attack_uuid):
     try:
         game = Game.objects.get(user=request.user, status=Game.IN_PROGRESS)
         game_step = GameStep.objects.get(game=game,
+                                         is_puzzle_solved=True,
                                          step__attack__attack_uuid=attack_uuid,
-                                         step__order=game.get_current_station
+                                         step__order=game.get_current_station,
                                          )
     except Game.DoesNotExist:
         return redirect('not_found')
