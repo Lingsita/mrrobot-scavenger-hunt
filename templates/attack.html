@@ -24,7 +24,7 @@
               <br/>
           </div>
           <div class="text-center">
-              <img id="prodImg" max-width="100%" style="" src="{% static "/" %}">
+              <img id="prodImg" max-width="100%" style="" data-src="{% static "/" %}">
           </div>
           <br/>
         </div>
@@ -34,6 +34,6 @@
 {% block extra_js %}
 $( document ).ready(function() {
     $('#attack-modal').modal('toggle');
-    $('#prodImg').attr('src', $('#prodImg').attr('src') + '{{product.image}}');
+    $('#prodImg').attr('src', $('#prodImg').attr('data-src') + '{{product.image}}');
 });
  {% endblock %}
