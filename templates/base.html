@@ -208,7 +208,9 @@
           }
         });
 
-        function checkOnMission() {
+        async function checkOnMission() {
+          await sleep(20000);
+
           let url = '{% url 'mission' %}';
           if (url == window.location.pathname) {
             console.log('It is already on mission page');
@@ -249,6 +251,10 @@
               var output = hour + ":" + min + ":" + sec;
               elemStopwatch.innerHTML = output;
             }, 10);
+        }
+
+        function sleep(ms) {
+          return new Promise(resolve => setTimeout(resolve, ms));
         }
     </script>
     <script>
