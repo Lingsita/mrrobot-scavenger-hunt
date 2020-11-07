@@ -143,6 +143,8 @@ def game(request):
         template_name = "finish.html"
     elif game.on_mission == True:
         template_name = "mission.html"
+    elif game.mode == Game.STORY:
+        template_name = "story/intro1.html"
     else:
         context.update({'step': game_step.step})
         if game.mode == Game.ATTACK:
@@ -232,7 +234,8 @@ def story(request, story_id):
 
     try:
         game = Game.objects.get(user=request.user, status=Game.IN_PROGRESS)
-        game_step = game.current_step
+        if game.mode != Game.STORY:
+            return redirect('game')
 
         context = {
             'game': game,
@@ -251,16 +254,18 @@ def story(request, story_id):
     except Game.DoesNotExist:
         return redirect('index')
 
-    context.update({'step': game_step.step})
+    context.update({'step': game.current_step.step})
     set_timer(request, context)
     template = loader.get_template(template_name)
     return HttpResponse(template.render(context, request))
 
 
+@login_required
 def deep_web_indicator(request):
     context = {
         'page_title': 'STORY',
-        'mode': 'story'
+        'mode': 'story',
+        'timer_ms': -1
     }
     template = loader.get_template(f'deep_web_indicator.html')
     return HttpResponse(template.render(context, request))
