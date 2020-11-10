@@ -2,30 +2,32 @@
 
 {% block content %}
     {% if form.errors %}
-        <p>Your username and password didn't match. Please try again. </p>
+        <p>Usuario no válido. Intentad de nuevo.</p>
     {% endif %}
 
     {% if user.is_authenticated %}
-        <p>{{ user.username }} You already logged in
+        <p>{{ user.username }} Ya habéis iniciado sesión
         <a href="{% url 'logout' %}">logout</a>
 
     {% else %}
-        <p>Please signup to start the game</p>
+        <p class="text-center">Crea una cuenta para jugar</p>
+        <br/>
         <form method="post" action="{% url 'signup' %}">
-           {% csrf_token %}
-            <table>
-                <tr>
-                    <td><label for="username">Username: </label></td>
-                    <td><input id="username" type="text" name="username" value="{{ username }}"></td>
-                </tr>
-                <tr>
-                    <td><label for="password">Password: </label></td>
-                    <td><input id="password" type="password" name="password" value="{{ password }}"></td>
-                </tr>
-            </table>
-            <input class="btn btn-success" type="submit" value="signup" />
-            <br>
-            <a href="{% url 'index' %}">Back to login</a>
+          <div class="form-group">
+            <label for="username">Usuario</label>
+            <input id="username" type="text" name="username" value="{{ username }}">
+          </div>
+          <div class="form-group">
+              <label for="password">Contraseña</label>
+              <input id="password" type="password" name="password" value="{{ password }}">
+          </div>
+          <div class="form-group text-center">
+              <input class="btn btn-success" type="submit" value="Crear cuenta" />
+          </div>
         </form>
+        <br/>
+        <div class="text-center">
+            <p><h1><a href="{% url 'index' %}">Iniciar sesión</a></h1></p>
+        </div>
     {% endif %}
 {% endblock %}

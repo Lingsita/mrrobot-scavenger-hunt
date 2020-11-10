@@ -31,7 +31,7 @@ def index(request):
             })
         else:
             context.update({
-                'message': 'Invalid Credentials. Please try again',
+                'message': 'El usuario no es válido. Intenta de nuevo.',
             })
 
     set_timer(request, context)
@@ -55,7 +55,7 @@ def set_timer(request, context):
 @csrf_exempt
 def signup(request):
     context = {
-        'page_title': 'Sign Up',
+        'page_title': 'REGISTRO',
         'mode': 'attack'
     }
     if request.method == 'POST':
@@ -63,7 +63,7 @@ def signup(request):
         password = request.POST.get('password')
         try:
             User.objects.get(username=username)
-            context['message'] = "This username already exists"
+            context['message'] = "Este usuario ya existe"
         except User.DoesNotExist:
             if username and password:
                 user = User.objects.create(username=username)
@@ -71,9 +71,9 @@ def signup(request):
                 user.save()
                 return redirect('index')
             else:
-                context['message'] = "Please fill all the fields"
+                context['message'] = "Diligencia ambos campos"
     else:
-        context['message'] = 'Please enter your information'
+        context['message'] = 'Ingresa tus datos'
 
     template = loader.get_template('signup.html')
 
