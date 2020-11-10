@@ -33,7 +33,7 @@ def save_log(user, message):
 
 def approve_attack(modeladmin, request, queryset):
     for game in queryset:
-        if game.status is not Game.FINISHED:
+        if game.status is not Game.FINISHED and game.mode == Game.ATTACK:
             game_step = game.current_step
             if game_step.is_puzzle_solved:
                 game_step.is_attack_approved = True
