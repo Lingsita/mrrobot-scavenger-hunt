@@ -68,7 +68,7 @@ def solving(obj):
         if obj.mode == Game.CYPHER:
             return f'Puzzle - {current_step.step.puzzle.description}'
         elif obj.mode == Game.ATTACK:
-            f'Attack - {current_step.step.attack.description}'
+            return f'Attack - {current_step.step.attack.description}'
         else:
             return 'Mission'
     return '----'
