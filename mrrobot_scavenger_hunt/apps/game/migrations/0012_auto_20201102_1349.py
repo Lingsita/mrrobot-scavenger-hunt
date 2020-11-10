@@ -4,9 +4,9 @@ from django.db import migrations
 from django.contrib.auth.models import User
 
 def create_superuser(apps, schema_editor):
-    User.objects.create_superuser(username='linglung', password='linglung')
-    User.objects.create_superuser(username='liliana', password='liliana')
-    User.objects.create_superuser(username='jonathan', password='jonathan')
+    User.objects.create_superuser(username='sigma', password='sigma123')
+    User.objects.create_superuser(username='epsilon', password='epsilon123')
+    User.objects.create_superuser(username='omega', password='omega123')
 
 class Migration(migrations.Migration):
 

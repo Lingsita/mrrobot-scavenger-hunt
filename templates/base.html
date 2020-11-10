@@ -132,7 +132,7 @@
 </style>
 <body class="" style="background-color: black; color: white;">
   <nav class="navbar navbar-expand-lg mode-{{mode}}">
-  <a class="navbar-brand" href="#"><span class="dot"></span> {% block title %} {{page_title}} {% endblock %}</a>
+  <span class="navbar-brand" href="#"><span class="dot"></span> {% block title %} {{page_title}} {% endblock %}</span>
   <div style="margin-right:0;" class="text-right">
     {% if user.is_authenticated %}
       {% if not user.is_staff and game %}

@@ -43,7 +43,7 @@ def set_timer(request, context):
     ms = -1
     if request.user.is_authenticated and not request.user.is_staff:
         try:
-            game = Game.objects.get(user=request.user)
+            game = Game.objects.get(user=request.user, status=Game.IN_PROGRESS)
             current_time = timezone.now()
             diff = current_time - game.start_date
             ms = diff.seconds * 1000
@@ -165,7 +165,6 @@ def check_answer(db_answer, user_answer):
     user_answer = user_answer.strip().lower()
 
     try:
-        # TODO: don't get this unresolved reference issue with unicode but it works xD
         user_answer = unicode(user_answer, 'utf-8')
     except NameError:  # unicode is a default on python 3
         pass
@@ -177,19 +176,18 @@ def check_answer(db_answer, user_answer):
     return db_answer.lower() == user_answer
 
 
-# TODO: What is this function for? I mean the difference between this and what is used in game function
-@login_required
-def check_puzzle_answer(request):
-    if request.method == 'POST':
-        puzzle_answer = request.POST.get('puzzle_answer')
-        game = Game.objects.get(user=request.user, status=Game.IN_PROGRESS)
-        game_step = GameStep.objects.get(game=game,
-        step__order=game.get_current_station)
-
-        if game_step.step.puzzle.puzzle_answer == puzzle_answer.lower():
-            game_step.is_puzzle_solved = True
-            game_step.save()
-    return redirect('game')
+# @login_required
+# def check_puzzle_answer(request):
+#     if request.method == 'POST':
+#         puzzle_answer = request.POST.get('puzzle_answer')
+#         game = Game.objects.get(user=request.user, status=Game.IN_PROGRESS)
+#         game_step = GameStep.objects.get(game=game,
+#         step__order=game.get_current_station)
+#
+#         if game_step.step.puzzle.puzzle_answer == puzzle_answer.lower():
+#             game_step.is_puzzle_solved = True
+#             game_step.save()
+#     return redirect('game')
 
 
 def not_found(request):
