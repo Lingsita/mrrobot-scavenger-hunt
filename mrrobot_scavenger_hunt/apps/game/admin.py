@@ -104,7 +104,6 @@ class AttackAdmin(admin.ModelAdmin):
 class PuzzleAdmin(admin.ModelAdmin):
     list_display = ('puzzle_type', 'description', 'tip', 'answer')
 
-#TODO: start and end mission without select any player
 
 admin.site.register(Attack, AttackAdmin)
 admin.site.register(Puzzle, PuzzleAdmin)

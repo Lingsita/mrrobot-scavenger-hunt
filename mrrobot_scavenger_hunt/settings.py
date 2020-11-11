@@ -79,8 +79,12 @@ WSGI_APPLICATION = 'mrrobot_scavenger_hunt.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),                      # Or path to database file if using sqlite3.
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'mrrobotscavengerhunt',
+        'USER': 'mrrobotscavengerhunt',
+        'PASSWORD': 'mrrobotscavengerhunt',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
