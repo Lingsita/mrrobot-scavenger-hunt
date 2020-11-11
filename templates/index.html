@@ -1,35 +1,70 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+  {% if user.is_authenticated %}
+    {% if user.is_staff %}
+      Setup Game
+    {% else%}
+    Hacker Setup
+    {% endif %}
+  {% else %}
+    LOGIN
+  {% endif %}
+{% endblock %}
 
 {% block content %}
-
     {% if form.errors %}
         <p>Your username and password didn't match. Please try again. </p>
     {% endif %}
     {% if user.is_authenticated %}
       {% if user.is_staff %}
-        <p>{{message}}</p>
-        {% if not already_started %}<p><a href="{% url 'start' %}">Game Setup</a></p>{%endif%}
-        <p><a href="{% url 'admin:index' %}">Go to admin page</a></p></p>
+        {% if not already_started %}
+          <p style="font-size: 20px; margin-bottom: 60px;"> This is your index page <span>admin</span> Your can start the game or go to Admin's Site for more actions. Enjoy the Hack!</p>
+          <div >
+          <div class="col-xs-12 text-center">
+            <a style="text-align:center;" class="btn btn-success" href="{% url 'start' %}">Start Game!</a>
+          </div>
+        {% else %}
+        <p style="font-size: 20px; margin-bottom: 60px;"> Go to Admin's Site for more actions. Enjoy the Hack!</p>
+        {%endif%}
+        <div class="col-xs-12 text-center">
+          <p><a class="btn btn-primary" href="{% url 'admin:index' %}">Go to admin page</a></p></p>
+        </div>
       {%else%}
-        <p>Please wait for CEO instructions
-        <p><a href="{% url 'game' %}">Continue to Game</a></p></p>
+        <div class="col-xs-12 text-center">
+          <p style="font-family: monospace; font-size: 5vw;">
+              Mientras recibís la señal, descargad los recursos en el <strong>engranaje de recursos</strong>, tío.
+              <br/>
+              <br/>
+          </p>
+         <img style="width: 660px;" src="{% static "loading_code.gif" %}">
+         <img style="margin-top: -550px;" src="{% static "connecting_black.gif" %}">
+            <br/>
+          <a class="btn btn-success mode-attack" href="{% url 'story' 1 %}">Access</a>
+        </div>
       {% endif %}
     {% else %}
-        <p>Please login to see this page.</p>
+        <p class="text-center"> <strong>Iniciar sesión</strong> </p>
+        <br/>
         <form method="post" action="{% url 'index' %}">
-            {% csrf_token %}
-            <table>
-                <tr>
-                    <td><label for="username">Username: </label></td>
-                    <td><input id="username" type="text" name="username" value="{{ username }}"></td>
-                </tr>
-                <tr>
-                    <td><label for="password">Password: </label></td>
-                    <td><input id="password" type="password" name="password" value="{{ password }}"></td>
-                </tr>
-            </table>
-            <input type="submit" value="login" />
+          <div class="form-group">
+            <label for="username">Usuario</label>
+            <input id="username" style="background-color: #0b0909; color: #7c7070; width: 100%;"
+                   type="text" name="username" value="{{ username }}">
+          </div>
+          <div class="form-group">
+              <label for="password">Contraseña</label>
+              <input id="password" style="background-color: #0b0909; color: #7c7070; width: 100%;"
+                     type="password" name="password" value="{{ password }}">
+          </div>
+          <div class="form-group text-center">
+              <input class="btn btn-success" style="border-color: #0c0;" type="submit" value="Ingresar" />
+          </div>
         </form>
-        <p><a href="{% url 'signup' %}">Or Sign Up</a></p></p>
+        <br/>
+        <div class="text-center">
+            <p><h1><a href="{% url 'signup' %}">¿No tienes una cuenta?</a></h1></p>
+        </div>
     {% endif %}
 {% endblock %}

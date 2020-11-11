@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="text-center">
+    <br/>
+    <img style="width: 100%;" src="{% static 'not_found.png' %}"/>
+    <br/>
+    <br/>
+    <p>
+      <h1><a href="{% url 'game' %}">Volver al juego</a></h1>
+    </p>
+  </div>
+{% endblock %}

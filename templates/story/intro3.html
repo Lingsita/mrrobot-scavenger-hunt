@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="story text-center">
+    <p class="title mode-{{mode}}">ECORP</p>
+    <p class="desc text-justify">
+      Esa es la debilidad que <strong>Evil Corp</strong> aprovechará con productos
+      creados para <strong>controlar</strong> vuestras mentes y <strong>coaccionar</strong> vuestras decisiones.
+    </p>
+    <img src="{% static "ecorp.png" %}">
+    <p class="desc text-justify">
+      <br/>
+      Ellos son una gran amenaza para el mundo... y por eso estamos acá.
+    </p>
+  </div>
+  <div class="row mode-{{mode}}">
+    <div class="col-sm-11">
+      <a id="aLeft" class="mode-{{mode}}" href="{% url 'story' 2 %}"><i class="fas fa-angle-left"></i></a>
+    </div>
+    <div class="col-sm-1 col-sm-offset-10">
+      <a id="aRight" class="mode-{{mode}}" href="{% url 'story' 4 %}"><i class="fas fa-angle-right"></i></a>
+    </div>
+  </div>
+{% endblock %}
+

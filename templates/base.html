@@ -1,17 +1,281 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Mr Robot Scavenger Hunt</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
 </head>
+<style media="screen">
+  .container-fluid{
+    font-size: 6vw;
+  }
+  .container-fluid input{
+    /*max-width: 500px;*/
+  }
+  .btn-success, .btn-primary, .btn-warning, .btn-danger{
+    background-color: black !important;
+    min-width: 200px;
+    border-radius: 1px;
+    border-width: 5px;
+    margin-top: 60px;
+    padding: 15px 50px;
+    font-size: 5vw;
+    font-weight: bold;
+    font-family: 'monospace';
+  }
 
-<body style="background-color: black; color: greenyellow;">
-  <header>
-    <p >{{page_title}} <span>{{user.username}}</span></p
-  </header>
-<H1>Mr Robot Scavenger Hunt!!!</H1>
-<p style="color: red; font-weight: bold">{{ message }}</p>
-{% block content %}
-{% endblock %}
+  .mode-mission{
+    color: #d39e00;
+    border-color: #d39e00;
+  }
+  .mode-cypher{
+    color: #f90707;
+    border-color: #f90707;
+  }
+  .mode-attack{
+    color: #0c0;
+    border-color: #0c0;
+  }
+  .mode-story{
+    color: #f40d06;
+    border-color: #f40d06;
+  }
+  .navbar{
+    background-color:black;
+    font-weight: bold;
+    font-size: 6vw;
+    border-bottom: 2px solid;
+    padding: 10px 30px;
+  }
+  .navbar-brand{
+    text-transform: capitalize;
+    color: inherit;
+    font-size: 7vw;
+    font-family: 'monospace';
+  }
+  .dot {
+    height: 5vw;
+    width: 5vw;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 10px;
+  }
+  .mode-mission .dot{
+    background-color: #d39e00;
+  }
+  .mode-cypher .dot{
+    background-color: #f90707;
+  }
+  .mode-attack .dot{
+    background-color: #0c0;
+  }
+  .mode-story .dot{
+    background-color: #f40d06;
+  }
+  .hacker-stopwatch {
+    color: #c5bfb8;
+    font-family: 'monospace';
+  }
+  .form-group input {
+    font-size: 6vw;
+  }
+  .game-container {
+    margin: 0px 4vw;
+  }
+  .puzzle {
+    /*font-size: 5vw;*/
+  }
+  .puzzle-desc {
+    font-family: monospace;
+    font-size: 5vw;
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
+  }
+  .story span {
+    color: #aba6a6;
+  }
+  .story .title {
+    font-size: 7vw;
+    font-weight: bold;
+    margin-bottom: 5vw;
+  }
+  .story .desc {
+    font-size: 5vw;
+  }
+  .dark-modal, .map {
+    filter: invert(100%);
+  }
+  .map {
+    max-width:100%;
+    margin-top:20px;
+  }
+  #attack-modal .modal-body p {
+    font-size: 5vw;
+    margin: 0vw 3vw;
+  }
+  #attack-modal img, #attack-modal .product-desc {
+    filter: invert(100%);
+  }
+  .modal-dialog {
+    max-width: unset;
+  }
+</style>
+<body class="" style="background-color: black; color: white;">
+  <nav class="navbar navbar-expand-lg mode-{{mode}}">
+  <span class="navbar-brand" href="#"><span class="dot"></span> {% block title %} {{page_title}} {% endblock %}</span>
+  <div style="margin-right:0;" class="text-right">
+    {% if user.is_authenticated %}
+      {% if not user.is_staff and game %}
+        {{user.username}}
+        <h2 id="spStopwatch" class="hacker-stopwatch">{{start_time}}</h2>
+      {% endif %}
+    {% endif %}
+
+  </div>
+</nav>
+
+<div class="container-fluid" style="padding: 30px">
+  <div class="col-xs-12">
+    <a  style="border:none; padding-left: 0; padding-top:0; font-size: 5vw; color: #9e9e9e;" data-toggle="modal" data-target="#exampleModalLong">
+        <svg width="5vw" height=5vw" viewBox="0 0 16 16" class="bi bi-gear-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 0 0-5.86 2.929 2.929 0 0 0 0 5.858z"/>
+        </svg> Recursos
+      </a>
+    <div class="text-center">
+      <p style="color: red; font-weight: bold">{{ message }}</p>
+    </div>
+    <div class="game-container">
+    {% block content %}
+    {% endblock %}
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade dark-modal mode-{{mode}}" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+      <div style="min-width: 90%;" class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title" id="exampleModalLongTitle" style="color: gray;"> <strong>Recursos</strong></h1>
+            <button style="font-size: 7vw;" type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+                  aria-selected="true">Instrucciones</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+                  aria-selected="false">Mapa</a>
+              </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <div style="font-size: 4vw;" class="tab-pane fade show active text-center" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <strong>Diagrama del Juego</strong>
+                <br/>
+                <img style="width: 50%;" class="map" src="{% static "game_diagram.png" %}">
+                <br/>
+                <br/>
+                <strong>Alfabeto</strong>
+                <br/>
+                <div class="dark-modal">
+                  <img style="width: 50%;" class="map" src="{% static "alphabet_expl.png" %}">
+                </div>
+              </div>
+              <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <img class="map" src="{% static "map.png" %}">
+                <br/><br/>
+                Video:
+                <a href="https://drive.google.com/file/d/1MTEMUXla2_G92pz6WS4RUtZJGUsV4aNw/view" target="_blank">
+                  <u><strong>Desjodamos el mundo!</strong></u>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+    <script>
+        $(function(){
+          checkOnMission();
+
+          let elemStopwatch = document.getElementById("spStopwatch");
+          let timer_ms = {{timer_ms}};
+          if (elemStopwatch && timer_ms > -1) {
+            set_stopwatch(elemStopwatch, timer_ms);
+          }
+        });
+
+        async function checkOnMission() {
+          await sleep(30000);
+
+          let url = '{% url 'mission' %}';
+          if (url == window.location.pathname) {
+            console.log('It is already on mission page');
+          } else {
+            fetch('{% url 'listener' %}')
+            .then(response => response.json())
+            .then(function(data) {
+              if (data && data.on_mission) {
+                window.location.href = url;
+              } else {
+                console.log('calling listener...');
+                checkOnMission();
+              }
+            });
+          }
+        }
+
+        function set_stopwatch(elemStopwatch, timer_ms) {
+            counter = timer_ms;
+            ms_in_1_sec = 1000;
+            ms_in_1_min = ms_in_1_sec * 60;
+            ms_in_1_hour = ms_in_1_min * 60;
+
+            setInterval(function(){
+              counter+=10;
+              remainder = counter;
+              hour = Math.floor(remainder / ms_in_1_hour);
+              remainder = remainder - ms_in_1_hour * hour;
+              min = Math.floor(remainder / ms_in_1_min);
+              remainder = remainder - ms_in_1_min * min;
+              sec = Math.floor(remainder / ms_in_1_sec);
+              ms = remainder - ms_in_1_sec * sec;
+
+              hour = (hour > 9 ? "" : "0") + hour;
+              min = (min > 9 ? "" : "0") + min;
+              sec = (sec > 9 ? "" : "0") + sec;
+
+              var output = hour + ":" + min + ":" + sec;
+              elemStopwatch.innerHTML = output;
+            }, 10);
+        }
+
+        function sleep(ms) {
+          return new Promise(resolve => setTimeout(resolve, ms));
+        }
+    </script>
+    <script>
+    {% block extra_js %}{% endblock %}
+    </script>
 </body>
 </html>

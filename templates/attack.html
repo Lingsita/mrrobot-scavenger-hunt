@@ -1,11 +1,46 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-  <h2>Attack</h2>
-  <p>Descripcion: {{ step.attack.description }}</p>
-  <p>Tipo de evidencia: {{ step.attack.evidence_type }}</p>
+  <p class="text-center mode-{{mode}}"><strong>{{ step.attack.title }}</strong></p>
+  <p class="text-justify">{{ step.attack.description }}</p>
+  {% if "cerveza" in step.attack.title.lower %}
+  <p class="text-center">
+      <img style="width: 40vw;" src="{% static "Camilo_whisky.jpeg" %}">
+  </p>
+  {% endif %}
+  <p>
+      <strong class="mode-{{mode}}">Evidencia:</strong> {{ step.attack.evidence_type }}
+  </p>
   <br>
-  <br>
-  <p><a href="{% url 'finish' %}">Finish game</a></p>
-  <p><a href="{% url 'index' %}">back to index?</a></p>
+  <p class="text-center">
+      <a id="btnContinue" class="btn btn-success mode-attack" href="{% url 'game' %}">CONTINUE</a>
+  </p>
+
+  <!-- Modal HTML -->
+    <div id="attack-modal" class="modal fade dark-modal">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header text-center">
+              <span class="modal-title w-100" style="color: #f630cf; font-family: monospace;"><strong>{{product.title}}</strong></span>
+              <button style="font-size: 7vw;" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          </div>
+          <div class="modal-body">
+              <p class="product-desc text-justify">
+                  {{product.description | safe }}
+              </p>
+          </div>
+          <div class="text-center">
+              <img id="prodImg" max-width="100%" style="" data-src="{% static "/" %}">
+          </div>
+          <br/>
+        </div>
+      </div>
+    </div>
 {% endblock %}
+{% block extra_js %}
+$( document ).ready(function() {
+    $('#attack-modal').modal('toggle');
+    $('#prodImg').attr('src', $('#prodImg').attr('data-src') + '{{product.image}}');
+});
+ {% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="text-justify">
+  <p>Damn good! Habéis logrado descifrar el mensaje oculto.</p>
+  {% if step.next_step %}
+  <p>
+    <br/>
+    Buscad el bug <strong class="mode-{{mode}}">#{{step.attack.id}}</strong>,
+    escanead el código QR, ejecutad el ataque y guardad la pista.
+    <br/><br/>
+    Vuestra siguiente estación es:</p>
+  {% else %}
+  <br/>
+  <p>Continuad a tu último ataque de esta fase. Buscad el bug <strong class="mode-{{mode}}">#{{step.attack.id}}</strong> en la estación: </p>
+  {% endif %}
+  <div class="text-center" style="margin: 3vw 0vw;">
+    <span class="mode-{{mode}}" style="font-size: 12vw;"><strong>{{ step.station.id }}</strong></span> <br/>
+    <span class="mode-{{mode}}" style="font-family: monospace;">
+      <strong>{{ step.station.name }}</strong>
+    </span>
+  </div>
+  <form method="post" action="{% url 'game' %}">
+    {% csrf_token %}
+    <div class="col-xs-12 text-center">
+      <!--<input class="btn btn-danger mode-cypher" type="submit" value="Continue" />-->
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="story text-center">
+    <p class="title mode-{{mode}}">Welcome!</p>
+    <p class="desc text-justify">
+      ¡Bienvenido al grupo de los <strong>mejores fucking hackers en el mundo!</strong>
+      Junto a los líderes
+      <strong class="mode-{{mode}}">Epsilon, Sigma y Omega</strong>,
+      trabajaréis para atacar los sistemas de seguridad de <strong>ECorp</strong> y destruirlos.
+    </p>
+    <p>
+      <img style="margin: 3vw 0vw;" src="{% static "watch-dogs-legion.jpg" %}">
+      <br/>
+      <strong>Es hora. ¡Espabilad, coño!</strong>
+    </p>
+  </div>
+  <div class="text-center">
+    <p><a id="btnPlay" class="btn btn-success mode-{{mode}}" href="{% url 'story' 0 %}">Play</a></p>
+  </div>
+{% endblock %}
+

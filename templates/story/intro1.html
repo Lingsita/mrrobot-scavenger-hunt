@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="story text-center">
+    <br/>
+    <p class="title mode-{{mode}}">Hello Friend!</p>
+    <p></p>
+    <p class="desc text-center">
+      <br/>
+      Os damos la bienvenida a:
+    </p>
+    <img style="width: 100%;" src="{% static "DEM-LOGO.png" %}">
+  </div>
+  <br/>
+  <div class="text-center">
+    <p><a id="btnStart" class="btn btn-success mode-{{mode}}" href="{% url 'story' 2 %}">Start</a></p>
+  </div>
+{% endblock %}
+

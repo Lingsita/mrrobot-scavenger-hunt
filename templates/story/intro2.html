@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="story text-center">
+    <p class="title mode-{{mode}}">Bogotá, 2020</p>
+    <p class="desc text-justify">
+      Esta es una ciudad estupenda <strong>llena de corporaciones de mierda.</strong>
+      Basta con que deis un vistazo alrededor.
+    </p>
+    <p>
+      <img src="{% static "fake.png" %}">
+    </p>
+    <p class="desc text-justify">
+      Lugar construído sobre la fantasía, con emociones sintéticas en forma de pastillas y
+      una guerra psicológica en forma de publicidad. <strong>
+      Somos burbujas controladas en redes sociales...</strong>
+    </p>
+  </div>
+  <div class="row mode-{{mode}}">
+    <div class="col-sm-11">
+      <a id="aLeft" class="mode-{{mode}}" href="{% url 'story' 1 %}"><i class="fas fa-angle-left"></i></a>
+    </div>
+    <div class="col-sm-1 col-sm-offset-10">
+      <a id="aRight" class="mode-{{mode}}" href="{% url 'story' 3 %}"><i class="fas fa-angle-right"></i></a>
+    </div>
+  </div>
+{% endblock %}
+

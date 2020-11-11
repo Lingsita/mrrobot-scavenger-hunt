@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="story text-center">
+    <p class="title mode-{{mode}}">FSOCIETY</p>
+    <p class="desc text-justify">
+      Por años, hemos visto la corrupción global y el sacrificio de inocentes.
+      En <strong>FSociety</strong>, hemos decidido <strong>intervenir.</strong>
+    </p>
+    <img src="{% static "fsociety.png" %}">
+    <p class="desc text-justify">
+      Seremos <strong>implacables, despiadados, sin misericordia</strong>
+      y no descansaremos hasta que <strong class="mode-{{mode}}">ECorp sea destruido.</strong>
+    </p>
+  </div>
+  <div class="row mode-{{mode}}">
+    <div class="col-sm-11">
+      <a id="aLeft" class="mode-{{mode}}" href="{% url 'story' 3 %}"><i class="fas fa-angle-left"></i></a>
+    </div>
+    <div class="col-sm-1 col-sm-offset-10">
+      <a id="aRight" class="mode-{{mode}}" href="{% url 'story' 5 %}"><i class="fas fa-angle-right"></i></a>
+    </div>
+  </div>
+{% endblock %}
+

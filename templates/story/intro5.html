@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="story text-center">
+    <p class="title mode-{{mode}}">
+      <font face="monospace">¿Sois un 1 o un 0?</font>
+    </p>
+    <p class="desc text-justify">
+      Todo se ha jodido un poco y debemos actuar.
+      Crearemos <strong class="mode-{{mode}}">una resistencia</strong> y
+      buscamos a gente <strong>como tú</strong>.
+      <br/>
+    </p>
+    <p style="font-size: 5vw;">
+      <strong>¿Sois un <i>sí</i> o un <i>no</i>?</strong>
+    </p>
+    <p class="desc text-justify">
+      <br/>
+      Si decidís no aceptar y os largáis, os convertís en un <font face="monospace">0</font>,
+      pero <strong>si queréis cambiar el mundo y os quedáis...</strong>
+      <br/>
+    </p>
+    <p style="font-size: 6.5vw; margin-top: 8vw;">
+      <strong class="mode-{{mode}}">¡Os convertís en un <font face="monospace">1</font>!</strong>
+    </p>
+  </div>
+  <div class="row mode-{{mode}}">
+    <div class="col-sm-11">
+      <a id="aLeft" class="mode-{{mode}}" href="{% url 'story' 4 %}"><i class="fas fa-angle-left"></i></a>
+    </div>
+    <div class="col-sm-1 col-sm-offset-10">
+      <a id="aRight" class="mode-{{mode}}" href="{% url 'story' 6 %}"><i class="fas fa-angle-right"></i></a>
+    </div>
+  </div>
+{% endblock %}
+
