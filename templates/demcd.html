@@ -2,7 +2,6 @@
 <html>
 <head>
 	<title>DEM</title>
-	<link rel="stylesheet" href="./demcd2_files/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<style type="text/css">
 		body {
@@ -15,29 +14,33 @@
 			justify-content: center;
 			align-items: center;
 		}
-		span#time {
+		span, a {
 		    font-size: 6vw;
 		    font-family: 'monospace';
 		    font-weight: bold;
 		    color: #0c0;
 		}
+		a {
+			color: #96021f;
+			font-family: monospace;
+		}
 	</style>
 </head>
 <body>
-	<!-- src: http://jsfiddle.net/yentup/fKA9X/1/-->
 	<div class="centered">
 		<span id="time"></span>
+		<a id="enter" href="https://bit.ly/2IiVYDh"></a>
 	</div>
-
 
 	<script type="text/javascript">
 		$(function(){
 		    var calcNewYear = setInterval(function(){
-		        //date_future = new Date(new Date().getFullYear() +1, 0, 1);
 		        date_future = new Date(2020,10,14,17)
 		        date_now = new Date();
 
 		        seconds = Math.floor((date_future - (date_now))/1000);
+				let flag = seconds >= 0;
+
 		        minutes = Math.floor(seconds/60);
 		        hours = Math.floor(minutes/60);
 		        days = Math.floor(hours/24);
@@ -46,7 +49,13 @@
 		        minutes = minutes-(days*24*60)-(hours*60);
 		        seconds = seconds-(days*24*60*60)-(hours*60*60)-(minutes*60);
 
-		        $("#time").text(days + "d : " + hours + "h : " + minutes + "m : " + seconds + "s");
+		        if (flag){
+		        	$("#time").text(days + "d : " + hours + "h : " + minutes + "m : " + seconds + "s");
+		        	$("#enter").text("");
+		        } else {
+		        	$("#time").text("");
+		        	$("#enter").text("ENTER");
+		        }
 		    },1000);
 		});
 	</script>
