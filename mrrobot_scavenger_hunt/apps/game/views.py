@@ -66,7 +66,7 @@ def signup(request):
             context['message'] = "Este usuario ya existe"
         except User.DoesNotExist:
             if username and password:
-                user = User.objects.create(username=username)
+                user = User.objects.create(username=username.lower())
                 user.set_password(password)
                 user.save()
                 return redirect('index')
