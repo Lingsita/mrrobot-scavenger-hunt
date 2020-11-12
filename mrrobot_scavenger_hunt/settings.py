@@ -80,10 +80,10 @@ WSGI_APPLICATION = 'mrrobot_scavenger_hunt.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'mrrobotscavengerhunt',
-        'HOST': 'mrrobotscavengerhunt.c5r2lotq8ubt.us-west-2.rds.amazonaws.com',
+        'NAME': 'mrrobot_scavenger_hunt',
+        'USER': 'mrrobot_scavenger_hunt',
+        'PASSWORD': 'mrrobot_scavenger_hunt',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
