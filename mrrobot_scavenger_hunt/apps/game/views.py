@@ -89,7 +89,7 @@ def logout(request):
 @login_required(login_url='/')
 @staff_member_required
 def start_game(request):
-    games = Game.objects.filter(status=Game.IN_PROGRESS)
+    games = Game.objects.filter(status__in=[Game.IN_PROGRESS, Game.STORY])
     already_started = False
     if games.exists():
         already_started = True
