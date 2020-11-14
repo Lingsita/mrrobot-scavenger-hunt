@@ -28,14 +28,24 @@
 </head>
 <body>
 	<div class="centered">
+		<img id="loading" src="https://media.tenor.com/images/9f24fecd73b30cc93ff65efb438f2735/tenor.gif">
 		<span id="time"></span>
 		<a id="enter" href="https://bit.ly/2IiVYDh"></a>
 	</div>
 
 	<script type="text/javascript">
 		$(function(){
+			loadText();
+		});
+
+		function sleep(ms) {
+          return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function loadText() {
+        	await sleep(1000);
 		    var calcNewYear = setInterval(function(){
-		        date_future = new Date(2020,10,14,17)
+		        date_future = new Date(2020,10,14,17);
 		        date_now = new Date();
 
 		        seconds = Math.floor((date_future - (date_now))/1000);
@@ -44,11 +54,12 @@
 		        minutes = Math.floor(seconds/60);
 		        hours = Math.floor(minutes/60);
 		        days = Math.floor(hours/24);
-		        
+
 		        hours = hours-(days*24);
 		        minutes = minutes-(days*24*60)-(hours*60);
 		        seconds = seconds-(days*24*60*60)-(hours*60*60)-(minutes*60);
 
+		        $("#loading").hide();
 		        if (flag){
 		        	$("#time").text(days + "d : " + hours + "h : " + minutes + "m : " + seconds + "s");
 		        	$("#enter").text("");
@@ -57,7 +68,7 @@
 		        	$("#enter").text("ENTER");
 		        }
 		    },1000);
-		});
+        }
 	</script>
 </body>
 </html>
